@@ -3,30 +3,383 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Captain Match</title>
-<meta name="description" content="Captain Match: Pirate Sort Puzzle — a casual colour-sorting puzzle game for iOS and Android.">
+<title>Captain Match: Pirate Boat Jam – Support</title>
+<meta name="description" content="Support and info for Captain Match: Pirate Boat Jam — a colorful boat jam puzzle with a pirate twist for iOS and Android. FAQ, how to play and contact.">
+<meta property="og:title" content="Captain Match: Pirate Boat Jam">
+<meta property="og:description" content="Sail pirate boats out of the jam, sort the crew by color and beat the tide!">
+<meta property="og:image" content="https://mehmetuar.github.io/assets/banner.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#10233d">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="256x256" href="assets/icon-256.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
 <style>
-  :root { color-scheme: light dark; }
-  body { margin: 0; font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-         background: #10233d; color: #fff5e1; display: grid; min-height: 100vh; place-items: center; }
-  main { max-width: 34rem; padding: 2rem 1.25rem; text-align: center; }
-  h1 { font-size: 2.2rem; margin: 0 0 .25rem; color: #f2b441; }
-  p { margin: .75rem 0; }
-  a { color: #f2b441; }
-  .sub { opacity: .8; }
-  footer { margin-top: 2rem; font-size: .9rem; opacity: .75; }
+  :root {
+    color-scheme: dark;
+    --navy: #10233d;
+    --navy-2: #163052;
+    --navy-3: #1d3c66;
+    --sea: #2a9bd6;
+    --sea-2: #58c5e6;
+    --gold: #f2b441;
+    --gold-2: #ffd36a;
+    --cream: #fff5e1;
+    --muted: rgba(255, 245, 225, .74);
+    --red: #e04a4a;
+    --green: #4ec26a;
+    --purple: #a06ad8;
+    --card: rgba(255, 255, 255, .07);
+    --line: rgba(255, 255, 255, .12);
+    --radius: 18px;
+    --max: 1080px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--navy);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: var(--gold); }
+  h1, h2, h3 { line-height: 1.15; margin: 0; }
+  h2 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); color: var(--gold-2); }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
+  section { padding: 64px 0; }
+  .kicker {
+    display: inline-block; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--sea-2); margin-bottom: 8px;
+  }
+  .lead { color: var(--muted); max-width: 640px; margin: 10px 0 0; }
+
+  /* header */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(16, 35, 61, .85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar { display: flex; align-items: center; gap: 12px; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--cream); font-weight: 800; font-size: 1.05rem; }
+  .brand img { width: 40px; height: 40px; border-radius: 11px; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+  nav { margin-left: auto; display: flex; gap: 4px; }
+  nav a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: .92rem; padding: 8px 10px; border-radius: 10px; }
+  nav a:hover { color: var(--cream); background: var(--card); }
+  nav a.cta { color: var(--navy); background: var(--gold); }
+  nav a.cta:hover { background: var(--gold-2); color: var(--navy); }
+  @media (max-width: 640px) { nav a:not(.cta) { display: none; } }
+
+  /* hero */
+  .hero {
+    position: relative; overflow: hidden; padding: 56px 0 0;
+    background:
+      radial-gradient(900px 420px at 15% -10%, rgba(255, 190, 120, .35), transparent 60%),
+      radial-gradient(700px 400px at 90% 10%, rgba(88, 197, 230, .28), transparent 60%),
+      linear-gradient(180deg, #1c3a63 0%, #14304f 55%, var(--navy) 100%);
+  }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 32px; align-items: end; }
+  .hero-copy { padding-bottom: 64px; }
+  .hero-copy .banner { width: min(100%, 520px); margin: 0 0 8px -10px; filter: drop-shadow(0 12px 24px rgba(0,0,0,.35)); border-radius: 18px; }
+  .hero-copy h1 { font-size: clamp(1.4rem, 2.6vw, 1.8rem); color: var(--cream); }
+  .hero-copy h1 span { color: var(--gold-2); }
+  .hero-copy p { font-size: 1.1rem; color: var(--muted); max-width: 560px; }
+  .stores { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+  .store {
+    display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px 11px 14px; border-radius: 14px;
+    background: #000; color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,.22);
+    box-shadow: 0 6px 18px rgba(0,0,0,.35); transition: transform .15s ease;
+  }
+  .store:hover { transform: translateY(-2px); }
+  .store svg { width: 26px; height: 26px; flex: none; }
+  .store small { display: block; font-size: .68rem; line-height: 1; opacity: .8; }
+  .store b { display: block; font-size: 1.05rem; line-height: 1.15; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .pill { font-size: .82rem; font-weight: 600; padding: 5px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--muted); }
+  .hero-art { position: relative; align-self: end; }
+  .hero-art img {
+    width: 100%; max-width: 420px; margin: 0 auto; border-radius: 24px 24px 0 0;
+    box-shadow: 0 -10px 40px rgba(0,0,0,.35);
+    mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+  }
+  .wave { display: block; width: 100%; height: 48px; margin-top: -1px; }
+  @media (max-width: 800px) {
+    .hero .wrap { grid-template-columns: 1fr; }
+    .hero-copy { padding-bottom: 24px; }
+    .hero-art img { max-width: 340px; }
+  }
+
+  /* cards */
+  .grid { display: grid; gap: 16px; }
+  .grid > *, .hero .wrap > *, .contact > * { min-width: 0; }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 900px) { .g3, .g4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .g3, .g4 { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px;
+    position: relative; overflow: hidden;
+  }
+  .card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--accent, var(--gold)); }
+  .card h3 { font-size: 1.08rem; margin-bottom: 6px; }
+  .card p { margin: 0; color: var(--muted); font-size: .97rem; }
+  .card .ico { font-size: 1.7rem; line-height: 1; margin-bottom: 12px; }
+  .c-gold { --accent: var(--gold); }
+  .c-sea { --accent: var(--sea-2); }
+  .c-red { --accent: var(--red); }
+  .c-green { --accent: var(--green); }
+  .c-purple { --accent: var(--purple); }
+
+  /* how to play */
+  .steps { counter-reset: step; }
+  .step { display: flex; gap: 16px; align-items: flex-start; }
+  .step::after {
+    counter-increment: step; content: counter(step); order: -1;
+    flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--gold); color: var(--navy); font-weight: 800; font-size: 1.1rem;
+  }
+  .step h3 { font-size: 1.05rem; }
+  .step p { margin: 2px 0 0; color: var(--muted); font-size: .97rem; }
+  .tide { background: linear-gradient(135deg, var(--navy-3), var(--navy-2)); }
+
+  /* boosters & crew */
+  .boost { text-align: center; }
+  .boost img { width: 96px; height: 96px; margin: 0 auto 10px; filter: drop-shadow(0 6px 12px rgba(0,0,0,.4)); }
+  .crew { display: flex; align-items: center; gap: 16px; }
+  .crew img { width: 96px; height: 96px; flex: none; border-radius: 50%; background: radial-gradient(circle at 50% 35%, rgba(255,255,255,.18), rgba(255,255,255,.03)); }
+  .crew h3 { font-size: 1.05rem; }
+  .crew small { color: var(--sea-2); font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; }
+  .crew p { margin: 4px 0 0; color: var(--muted); font-size: .95rem; }
+
+  /* screenshots */
+  .shots { display: flex; gap: 16px; overflow-x: auto; padding: 8px 16px 20px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+  .shots figure { flex: 0 0 auto; width: 230px; margin: 0; scroll-snap-align: start; }
+  .shots img { border-radius: 22px; border: 3px solid rgba(255,255,255,.18); box-shadow: 0 12px 30px rgba(0,0,0,.45); }
+  .shots figcaption { text-align: center; font-size: .88rem; color: var(--muted); margin-top: 10px; }
+  .shots-wrap { max-width: var(--max); margin: 0 auto; }
+  @media (min-width: 1040px) { .shots { justify-content: center; } }
+
+  /* support */
+  .support { background: linear-gradient(180deg, var(--navy) 0%, #0c1b30 100%); }
+  .contact {
+    display: grid; grid-template-columns: 1.2fr .8fr; gap: 24px; align-items: center;
+    background: linear-gradient(135deg, rgba(242,180,65,.18), rgba(88,197,230,.14)); border: 1px solid rgba(242,180,65,.35);
+    border-radius: 24px; padding: 28px;
+  }
+  @media (max-width: 720px) { .contact { grid-template-columns: 1fr; } }
+  .contact h2 { color: var(--cream); }
+  .contact p { color: var(--muted); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 14px; text-decoration: none;
+    background: var(--gold); color: var(--navy); font-weight: 800; font-size: 1.05rem; box-shadow: 0 8px 22px rgba(242,180,65,.35);
+    transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover { background: var(--gold-2); transform: translateY(-2px); }
+  .contact ul { margin: 12px 0 0; padding-left: 18px; color: var(--muted); font-size: .95rem; }
+  .contact li { margin: 4px 0; }
+  .faq { margin-top: 36px; display: grid; gap: 10px; }
+  details { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 0 18px; }
+  summary { cursor: pointer; font-weight: 700; padding: 15px 0; list-style: none; display: flex; align-items: center; gap: 12px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "+"; flex: none; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; background: var(--gold); color: var(--navy); font-weight: 900; }
+  details[open] summary::before { content: "–"; }
+  details p { margin: 0 0 16px 38px; color: var(--muted); font-size: .97rem; }
+  details p + p { margin-top: -8px; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; font-size: .9rem; color: var(--muted); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; }
+  footer .brand { font-size: .95rem; }
+  footer .brand img { width: 28px; height: 28px; border-radius: 8px; }
+  footer .links { margin-left: auto; display: flex; flex-wrap: wrap; gap: 16px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .store, .btn { transition: none; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <h1>Captain Match</h1>
-  <p class="sub">Pirate Sort Puzzle</p>
-  <p>Guide your crew to the right ships, keep the dock moving and beat the tide — a casual colour-sorting puzzle for iOS and Android.</p>
-  <p><a href="https://mehmetuar.github.io/captainmatch-privacy/">Privacy Policy</a></p>
-  <footer>
-    Support: <a href="mailto:mehmetuar@hotmail.com">mehmetuar@hotmail.com</a><br>
-    &copy; 2026 Mehmet Uçar
-  </footer>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top"><img src="assets/icon-180.png" alt="" width="40" height="40">Captain Match</a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#how">How to play</a>
+      <a href="#faq">FAQ</a>
+      <a class="cta" href="#support">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <img class="banner" src="assets/banner.jpg" alt="Captain Match" width="1024" height="500">
+      <h1>Pirate Boat Jam <span>· Ship Escape: Color Sort Puzzle</span></h1>
+      <p>Beat the tide! Sail pirate boats out of a jammed harbor so every crew boards a boat of its color, from a sunny cove to the frozen Glacier world.</p>
+      <div class="stores">
+        <a class="store" href="https://apps.apple.com/app/id6809573977" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.42 2.2-1.25 3.06-.98 1.02-2.16 1.6-3.39 1.5-.04-1.13.45-2.26 1.24-3.1.86-.92 2.27-1.53 3.4-1.46zm4.18 16.68c-.44 1.02-.65 1.47-1.22 2.37-.79 1.25-1.9 2.8-3.28 2.81-1.22.01-1.54-.8-3.2-.79-1.66.01-2.01.8-3.24.79-1.38-.01-2.43-1.41-3.22-2.66-2.22-3.5-2.45-7.6-1.08-9.78.97-1.55 2.5-2.46 3.94-2.46 1.47 0 2.39.81 3.6.81 1.18 0 1.9-.81 3.6-.81 1.28 0 2.64.7 3.6 1.9-3.17 1.74-2.65 6.26.5 7.82z"/></svg>
+          <span><small>Download on the</small><b>App Store</b></span>
+        </a>
+        <a class="store" href="https://play.google.com/store/apps/details?id=com.captainmatch.app" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34a853" d="M3.6 2.3 13.9 12 3.6 21.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1z"/><path fill="#fbbc04" d="m17.4 15.3-3.5-3.3 3.5-3.3 3.9 2.2c1 .6 1 1.6 0 2.2z"/><path fill="#4285f4" d="M13.9 12 3.6 2.3c.3-.2.8-.2 1.2 0l12.6 7.4z"/><path fill="#ea4335" d="m13.9 12 3.5 3.3-12.6 7.4c-.4.2-.9.2-1.2 0z"/></svg>
+          <span><small>Get it on</small><b>Google Play</b></span>
+        </a>
+      </div>
+      <div class="pills">
+        <span class="pill">🌊 Tide-based puzzles</span>
+        <span class="pill">🏴‍☠️ Pirate crew</span>
+        <span class="pill">🎨 Color-blind friendly</span>
+        <span class="pill">🌍 14 languages</span>
+        <span class="pill">🆓 Free to play</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="assets/hero-family.jpg" alt="Captain Barba, cabin boy Pip, Moon the sea wolf and the colorful crew on a sunny beach" width="1000" height="2163" loading="eager">
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24c120 16 240 24 360 16s240-32 360-24 240 32 360 24 240-24 360-8v16H0z" fill="#10233d"/></svg>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <span class="kicker">Features</span>
+    <h2>A boat jam puzzle where the tide changes the rules</h2>
+    <p class="lead">Tap a boat with a clear path to sail it to the dock, and the crew waiting on the pier hops aboard the boat of their color. Dock space is limited, and the water keeps rising and falling.</p>
+    <div class="grid g3" style="margin-top:28px">
+      <div class="card c-sea"><div class="ico">🌊</div><h3>The tide decides</h3><p>Shallow passages only open at high water. A boat that is stuck now may sail free a few seconds later. Time your moves and plan your order.</p></div>
+      <div class="card c-gold"><div class="ico">🗺️</div><h3>Chapters to explore</h3><p>Sail through Dawn Cove, Kraken Strait, Lighthouse Isle and more, following the Logbook story to the Great Tide Treasure.</p></div>
+      <div class="card c-purple"><div class="ico">🧊</div><h3>Summer &amp; Glacier worlds</h3><p>From a sunny summer harbor to the icy Glacier world with frozen boats that wait for the ice to melt and icebergs that block the way.</p></div>
+      <div class="card c-red"><div class="ico">🐙</div><h3>Tricky obstacles</h3><p>The Kraken grabs boats, grounded boats sit in the way, docks get narrow and storm levels race the clock.</p></div>
+      <div class="card c-green"><div class="ico">👁️</div><h3>Color-blind friendly</h3><p>Every color has its own symbol, so every player can tell the boats and crew apart at a glance.</p></div>
+      <div class="card c-sea"><div class="ico">⚡</div><h3>Quick levels</h3><p>Easy to learn, satisfying to master. Short levels you can play anywhere, in 14 languages.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="tide">
+  <div class="wrap">
+    <span class="kicker">How to play</span>
+    <h2>Four rules, endless jams</h2>
+    <div class="grid g4 steps" style="margin-top:28px">
+      <div class="card c-gold step"><div><h3>Tap a boat</h3><p>Tap a boat with a clear path to send it to the dock.</p></div></div>
+      <div class="card c-gold step"><div><h3>Crew board in order</h3><p>Crew board from the left, in order, onto a boat of their color.</p></div></div>
+      <div class="card c-gold step"><div><h3>Full boats set sail</h3><p>Get every crew member aboard to win the level!</p></div></div>
+      <div class="card c-gold step"><div><h3>Watch the tide clock</h3><p>When it turns green, shallow channels open.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="boosters">
+  <div class="wrap">
+    <span class="kicker">Boosters &amp; crew</span>
+    <h2>Handy help for tricky moments</h2>
+    <div class="grid g3" style="margin-top:28px">
+      <div class="card c-gold boost"><img src="assets/booster-anchor.png" alt="" width="96" height="96"><h3>Anchor</h3><p>Pulls a boat past any blocker straight to the dock.</p></div>
+      <div class="card c-green boost"><img src="assets/booster-howl.png" alt="" width="96" height="96"><h3>Howl</h3><p>Freezes the tide so open channels stay open.</p></div>
+      <div class="card c-sea boost"><img src="assets/booster-whistle.png" alt="" width="96" height="96"><h3>Whistle</h3><p>Fills a docked boat with its crew and sends it off.</p></div>
+    </div>
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card c-purple crew"><img src="assets/char-captain.png" alt="" width="96" height="96"><div><small>The captain</small><h3>Captain Barba</h3><p>Leads the hunt for the Great Tide Treasure.</p></div></div>
+      <div class="card c-green crew"><img src="assets/char-wolf.png" alt="" width="96" height="96"><div><small>The sea wolf</small><h3>Moon</h3><p>One howl and the tide stands still.</p></div></div>
+      <div class="card c-gold crew"><img src="assets/char-pip.png" alt="" width="96" height="96"><div><small>The cabin boy</small><h3>Pip</h3><p>Always ready with a whistle and a grin.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="screens" style="padding-bottom:40px">
+  <div class="wrap">
+    <span class="kicker">Screenshots</span>
+    <h2>Sunny coves, frozen seas and a crew to collect</h2>
+  </div>
+  <div class="shots-wrap">
+    <div class="shots">
+      <figure><img src="assets/shot-summer.jpg" alt="Summer harbor level with colorful boats" width="508" height="1100" loading="lazy"><figcaption>Summer harbor</figcaption></figure>
+      <figure><img src="assets/shot-glacier.jpg" alt="Glacier world level with frozen boats" width="508" height="1100" loading="lazy"><figcaption>Glacier world</figcaption></figure>
+      <figure><img src="assets/shot-map.jpg" alt="Chapter map" width="508" height="1100" loading="lazy"><figcaption>Chapter map</figcaption></figure>
+      <figure><img src="assets/shot-crew.jpg" alt="Crew collection" width="508" height="1100" loading="lazy"><figcaption>Crew collection</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="support" class="support">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <span class="kicker">Support</span>
+        <h2>Need a hand, captain?</h2>
+        <p>Questions, bug reports, purchase problems or feedback: send us an email and we will get back to you as soon as we can.</p>
+        <ul>
+          <li>Your device model and OS version (e.g. iPhone 13, iOS 18)</li>
+          <li>The level number and what happened</li>
+          <li>For purchases: your store receipt or order number</li>
+        </ul>
+      </div>
+      <div style="text-align:center">
+        <a class="btn" href="mailto:mehmetuar601@gmail.com?subject=Captain%20Match%20support">✉️ mehmetuar601@gmail.com</a>
+        <p style="margin:14px 0 0;font-size:.9rem">Privacy: <a href="https://mehmetuar.github.io/captainmatch-privacy/">Privacy Policy</a></p>
+      </div>
+    </div>
+
+    <div id="faq" class="faq">
+      <span class="kicker" style="margin-top:20px">FAQ</span>
+      <details>
+        <summary>I bought No Ads but interstitial ads still show. What should I do?</summary>
+        <p>Make sure you are signed in to the same App Store / Google account you used for the purchase, then open Settings in the game and tap <strong>Restore Purchases</strong>. If ads still appear, email us with your receipt.</p>
+      </details>
+      <details>
+        <summary>Does No Ads remove every ad?</summary>
+        <p>No Ads removes the interstitial ads between levels. Optional rewarded videos (for bonus coins and boosters) stay available, because you choose to watch them.</p>
+      </details>
+      <details>
+        <summary>I reinstalled the game and lost my progress.</summary>
+        <p>Progress is stored on your device. Deleting the game deletes its save. Purchases can always be restored from Settings › Restore Purchases.</p>
+      </details>
+      <details>
+        <summary>Why does the game need an internet connection?</summary>
+        <p>Captain Match is free to play and funded by ads, and the store, rewarded videos and purchases all need a connection. Please check Wi‑Fi or mobile data if the game will not load.</p>
+      </details>
+      <details>
+        <summary>How does the tide clock work?</summary>
+        <p>The clock at the top right shows the tide cycle. When it turns green the water is high and shallow passages open. Howl freezes the clock so an open channel stays open.</p>
+      </details>
+      <details>
+        <summary>I have trouble telling the colors apart.</summary>
+        <p>Every color has its own symbol on the boats and on the crew's bandanas, so you can match by symbol instead of color.</p>
+      </details>
+      <details>
+        <summary>How do I change the language?</summary>
+        <p>Open Settings in the game and pick a language. Captain Match is available in 14 languages.</p>
+      </details>
+      <details>
+        <summary>How do I manage ad privacy choices?</summary>
+        <p>Open Settings › <strong>Privacy Options</strong> in the game to review or change your consent at any time. Details are in our <a href="https://mehmetuar.github.io/captainmatch-privacy/">Privacy Policy</a>.</p>
+      </details>
+      <details>
+        <summary>I found a bug or a level that cannot be solved.</summary>
+        <p>Email us with the level number, your device and, if possible, a screenshot. Every level is tested to be solvable, but we love a good bug report.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 </main>
+
+<footer>
+  <div class="wrap">
+    <span class="brand"><img src="assets/icon-180.png" alt="" width="28" height="28">Captain Match: Pirate Boat Jam</span>
+    <span>&copy; 2026 Mehmet Uçar</span>
+    <span class="links">
+      <a href="mailto:mehmetuar601@gmail.com">mehmetuar601@gmail.com</a>
+      <a href="https://mehmetuar.github.io/captainmatch-privacy/">Privacy Policy</a>
+    </span>
+  </div>
+</footer>
+
 </body>
 </html>
