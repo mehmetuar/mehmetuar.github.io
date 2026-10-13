@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get Captain Match</title>
+<meta name="description" content="Download Captain Match: Pirate Boat Jam — a colorful boat jam puzzle with a pirate twist.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Captain Match: Pirate Boat Jam">
+<meta property="og:description" content="Sail pirate boats out of the jam, sort the crew by color and beat the tide!">
+<meta property="og:image" content="https://mehmetuar.github.io/assets/banner.jpg?v=2">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#10233d">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/icon-180.png?v=2">
+<style>
+  :root {
+    color-scheme: dark;
+    --navy: #10233d; --navy-2: #163052;
+    --gold: #f2b441; --gold-2: #ffd36a;
+    --cream: #fff5e1; --muted: rgba(255,245,225,.74);
+    --card: rgba(255,255,255,.07); --line: rgba(255,255,255,.12);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 24px 16px;
+    font: 17px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--cream); background: radial-gradient(120% 90% at 50% 0%, var(--navy-2), var(--navy) 70%);
+  }
+  main { width: 100%; max-width: 420px; text-align: center; }
+  img.icon { width: 112px; height: 112px; border-radius: 26px; box-shadow: 0 14px 34px rgba(0,0,0,.45); }
+  h1 { font-size: 1.55rem; line-height: 1.2; margin: 18px 0 6px; }
+  p { margin: 0 0 22px; color: var(--muted); }
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin: 10px 0;
+    padding: 15px 20px; border-radius: 14px; text-decoration: none; font-weight: 800; font-size: 1.05rem;
+    background: var(--gold); color: var(--navy); box-shadow: 0 8px 22px rgba(242,180,65,.35);
+  }
+  .btn:hover { background: var(--gold-2); }
+  .btn.soon { background: var(--card); color: var(--muted); border: 1px solid var(--line); box-shadow: none; pointer-events: none; }
+  .btn svg { width: 22px; height: 22px; flex: none; }
+  .note { font-size: .92rem; margin-top: 18px; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <img class="icon" src="../assets/icon-180.png?v=2" alt="Captain Match icon" width="112" height="112">
+  <h1>Captain Match: Pirate Boat Jam</h1>
+  <p id="lead" data-i18n="lead">Sail pirate boats out of the jam, sort the crew by color and beat the tide!</p>
+
+  <a class="btn" id="android" href="https://play.google.com/store/apps/details?id=com.captainmatch.app" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3 13.4 12 3.6 21.7c-.3-.2-.6-.6-.6-1.2V3.5c0-.6.3-1 .6-1.2zm11 10.9 2.7 2.7-11 6.3zm0-2.4L4.3 4.5l11 6.3zm1.3 1.2 3.3-1.9c.9-.5.9-1.4 0-1.9l-3.3-1.9L17 12z"/></svg>
+    <span data-i18n="android">Get it on Google Play</span>
+  </a>
+
+  <a class="btn soon" id="ios" href="https://apps.apple.com/app/id6809573977" rel="noopener" aria-disabled="true">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9s-1.9-.9-3.2-.8c-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.6-1-2.6-3.8zM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.5 2.8-1.3z"/></svg>
+    <span id="ios-label" data-i18n="ios_soon">Coming soon on the App Store</span>
+  </a>
+
+  <p class="note hidden" id="ios-note" data-i18n="ios_note">The iPhone version is in review. Check back soon!</p>
+  <p class="note hidden" id="redirecting" data-i18n="redirecting">Opening Google Play…</p>
+</main>
+
+<script>
+(function () {
+  // iOS yayına girince true yapılır: iPhone ziyaretçi doğrudan App Store'a gider.
+  var IOS_LIVE = false;
+  var PLAY = "https://play.google.com/store/apps/details?id=com.captainmatch.app";
+  var APPSTORE = "https://apps.apple.com/app/id6809573977";
+
+  // Oyunun 14 dili + mağazadaki en-GB / es-MX. "lead" satırları Play kısa açıklamasıyla aynı.
+  var T = {
+    "en":      { lead: "Sail pirate boats out of the jam, sort the crew by color and beat the tide!", android: "Get it on Google Play", ios_soon: "Coming soon on the App Store", ios_live: "Download on the App Store", ios_note: "The iPhone version is in review. Check back soon!", redirecting: "Opening Google Play…" },
+    "en-GB":   { lead: "Sail pirate boats out of the jam, sort the crew by colour and beat the tide!", android: "Get it on Google Play", ios_soon: "Coming soon on the App Store", ios_live: "Download on the App Store", ios_note: "The iPhone version is in review. Check back soon!", redirecting: "Opening Google Play…" },
+    "tr":      { lead: "Korsan gemilerini sıkışıklıktan kurtar, tayfayı renge göre sırala, gelgiti yen!", android: "Google Play'den indir", ios_soon: "App Store'da yakında", ios_live: "App Store'dan indir", ios_note: "iPhone sürümü incelemede. Yakında burada!", redirecting: "Google Play açılıyor…" },
+    "de":      { lead: "Piratenboote aus dem Stau holen, Crew nach Farben sortieren, Gezeiten meistern!", android: "Jetzt bei Google Play", ios_soon: "Bald im App Store", ios_live: "Laden im App Store", ios_note: "Die iPhone-Version ist in Prüfung. Schau bald wieder vorbei!", redirecting: "Google Play wird geöffnet …" },
+    "es":      { lead: "¡Saca los barcos piratas del atasco, ordena la tripulación por colores y vence!", android: "Disponible en Google Play", ios_soon: "Próximamente en el App Store", ios_live: "Descargar en el App Store", ios_note: "La versión para iPhone está en revisión. ¡Vuelve pronto!", redirecting: "Abriendo Google Play…" },
+    "es-MX":   { lead: "¡Saca los barcos piratas del atasco, ordena la tripulación por colores y gana!", android: "Disponible en Google Play", ios_soon: "Próximamente en el App Store", ios_live: "Descargar en el App Store", ios_note: "La versión para iPhone está en revisión. ¡Vuelve pronto!", redirecting: "Abriendo Google Play…" },
+    "fr":      { lead: "Sors les bateaux pirates de l'embouteillage, trie l'équipage par couleur !", android: "Disponible sur Google Play", ios_soon: "Bientôt sur l'App Store", ios_live: "Télécharger dans l'App Store", ios_note: "La version iPhone est en cours de validation. Revenez bientôt !", redirecting: "Ouverture de Google Play…" },
+    "it":      { lead: "Libera le barche pirata dall'ingorgo, ordina la ciurma per colore e vinci!", android: "Disponibile su Google Play", ios_soon: "Presto su App Store", ios_live: "Scarica su App Store", ios_note: "La versione per iPhone è in revisione. Torna presto!", redirecting: "Apertura di Google Play…" },
+    "pt":      { lead: "Tire os barcos piratas do engarrafamento, ordene a tripulação por cores e vença!", android: "Disponível no Google Play", ios_soon: "Em breve na App Store", ios_live: "Baixar na App Store", ios_note: "A versão para iPhone está em análise. Volte em breve!", redirecting: "Abrindo o Google Play…" },
+    "ru":      { lead: "Выведи пиратские лодки из пробки, рассади команду по цветам и покори прилив!", android: "Доступно в Google Play", ios_soon: "Скоро в App Store", ios_live: "Загрузить в App Store", ios_note: "Версия для iPhone на проверке. Загляните позже!", redirecting: "Открываем Google Play…" },
+    "id":      { lead: "Bebaskan kapal bajak laut dari kemacetan, susun awak sesuai warna, dan menang!", android: "Dapatkan di Google Play", ios_soon: "Segera hadir di App Store", ios_live: "Unduh di App Store", ios_note: "Versi iPhone sedang ditinjau. Kembali lagi segera!", redirecting: "Membuka Google Play…" },
+    "ja":      { lead: "海賊船を渋滞から脱出させ、船員を色分けして乗せよう！潮を読む船のパズルゲーム", android: "Google Play で手に入れよう", ios_soon: "App Store で近日公開", ios_live: "App Store からダウンロード", ios_note: "iPhone 版は審査中です。もうしばらくお待ちください！", redirecting: "Google Play を開いています…" },
+    "ko":      { lead: "해적선을 교통 체증에서 탈출시키고 선원을 색깔별로 태우세요! 물때를 읽는 배 퍼즐 게임", android: "Google Play 다운로드", ios_soon: "App Store 출시 예정", ios_live: "App Store에서 다운로드", ios_note: "iPhone 버전은 심사 중입니다. 곧 다시 확인해 주세요!", redirecting: "Google Play를 여는 중…" },
+    "zh-Hans": { lead: "把海盗船从堵车中解救出来，按颜色让船员上船，读懂潮汐的益智游戏！", android: "Google Play 下载", ios_soon: "即将登陆 App Store", ios_live: "在 App Store 下载", ios_note: "iPhone 版正在审核中，敬请期待！", redirecting: "正在打开 Google Play…" },
+    "zh-Hant": { lead: "把海盜船從塞車中解救出來，按顏色讓船員上船，讀懂潮汐的益智遊戲！", android: "Google Play 下載", ios_soon: "即將登陸 App Store", ios_live: "在 App Store 下載", ios_note: "iPhone 版正在審核中，敬請期待！", redirecting: "正在開啟 Google Play…" },
+    "ar":      { lead: "أخرِج قوارب القراصنة من الزحمة، ورتّب الطاقم حسب الألوان، وتغلّب على المد!", android: "احصل عليه من Google Play", ios_soon: "قريبًا على App Store", ios_live: "حمّله من App Store", ios_note: "إصدار iPhone قيد المراجعة. عُد قريبًا!", redirecting: "جارٍ فتح Google Play…" }
+  };
+
+  var q = new URLSearchParams(location.search);
+
+  // Tarayıcı dilinden sayfa dili: ?l=ja ile zorlanabilir (kontrol için).
+  function pickLang() {
+    var list = q.get("l") ? [q.get("l")] : (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"]);
+    for (var i = 0; i < list.length; i++) {
+      var l = String(list[i]).toLowerCase(), base = l.split("-")[0];
+      if (base === "zh") return /hant|tw|hk|mo/.test(l) ? "zh-Hant" : "zh-Hans";
+      if (base === "en") return l === "en-gb" || l === "en-au" || l === "en-nz" || l === "en-ie" ? "en-GB" : "en";
+      if (base === "es") return l === "es-es" || l === "es" ? "es" : "es-MX";
+      if (T[base]) return base;
+    }
+    return "en";
+  }
+  var lang = pickLang(), t = T[lang];
+  document.documentElement.lang = lang;
+  if (lang === "ar") document.documentElement.dir = "rtl";
+  document.querySelectorAll("[data-i18n]").forEach(function (el) { if (t[el.dataset.i18n]) el.textContent = t[el.dataset.i18n]; });
+
+  // ?s=tiktok gibi kaynak etiketi → Play Console'un edinim raporunda UTM olarak görünür.
+  function tag(v, fallback) { v = (v || "").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 32); return v || fallback; }
+  var source = tag(q.get("s"), "bio"), medium = tag(q.get("m"), "social");
+  var referrer = "utm_source=" + source + "&utm_medium=" + medium + "&utm_campaign=get";
+  var playUrl = PLAY + "&referrer=" + encodeURIComponent(referrer);
+
+  var android = document.getElementById("android"), ios = document.getElementById("ios");
+  android.href = playUrl;
+
+  if (IOS_LIVE) {
+    ios.classList.remove("soon"); ios.removeAttribute("aria-disabled");
+    document.getElementById("ios-label").textContent = t.ios_live;
+  }
+
+  var ua = navigator.userAgent || "";
+  var isAndroid = /Android/i.test(ua);
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  if (isAndroid) {
+    document.getElementById("redirecting").classList.remove("hidden");
+    location.replace(playUrl);
+  } else if (isIOS) {
+    if (IOS_LIVE) location.replace(APPSTORE);
+    else document.getElementById("ios-note").classList.remove("hidden");
+  }
+})();
+</script>
+</body>
+</html>
