@@ -156,7 +156,7 @@
   /* ---------- iletişim: form Web3Forms ile sunucusuz gönderilir ---------- */
   // Spam kontrolleri tarayıcıda: alan sınırları, gizli tuzak, en kısa doldurma süresi, aynı mesaj, cihaz başına günde 3 mesaj.
   // Sunucu olmadığı için sınır cihaz/tarayıcı başınadır; gönderenin IP'sini Web3Forms her mailin altına yazar ("Visitor ID").
-  var LIM = { perDay: 3, day: 864e5, emailMax: 100, deviceMax: 40, deviceWords: 5, msgMin: 10, msgMax: 1000, links: 2, minFill: 4000 };
+  var LIM = { perDay: 3, day: 864e5, emailMax: 100, deviceMax: 40, deviceWords: 5, msgMin: 10, msgMax: 500, links: 2, minFill: 4000 };
   var cdlg = $("#contactDlg"), cst = $("#cfStatus"), csend = $("#cfSend"), openedAt = 0;
   var fEmail = $("#cfEmail"), fDevice = $("#cfDevice"), fLevel = $("#cfLevel"), fMsg = $("#cfMsg"), fields = [fEmail, fDevice, fLevel, fMsg];
   function guessDevice() {
