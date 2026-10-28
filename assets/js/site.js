@@ -154,7 +154,11 @@
   $("#pgNext").addEventListener("click", function () { if (page < CM.log.length - 1) { page++; renderBook(); } });
 
   /* ---------- iletişim: form Web3Forms ile sunucusuz gönderilir ---------- */
-  var cdlg = $("#contactDlg"), cst = $("#cfStatus"), csend = $("#cfSend");
+  // Spam kontrolleri tarayıcıda: alan sınırları, gizli tuzak, en kısa doldurma süresi, aynı mesaj, cihaz başına günde 3 mesaj.
+  // Sunucu olmadığı için sınır cihaz/tarayıcı başınadır; gönderenin IP'sini Web3Forms her mailin altına yazar ("Visitor ID").
+  var LIM = { perDay: 3, day: 864e5, emailMax: 100, deviceMax: 40, deviceWords: 5, msgMin: 10, msgMax: 1000, links: 2, minFill: 4000 };
+  var cdlg = $("#contactDlg"), cst = $("#cfStatus"), csend = $("#cfSend"), openedAt = 0;
+  var fEmail = $("#cfEmail"), fDevice = $("#cfDevice"), fLevel = $("#cfLevel"), fMsg = $("#cfMsg"), fields = [fEmail, fDevice, fLevel, fMsg];
   function guessDevice() {
     var m;
     if ((m = ua.match(/iPhone OS (\d+)[._](\d+)/))) return "iPhone, iOS " + m[1] + "." + m[2];
@@ -167,19 +171,54 @@
     if (kind === "err") { var a = document.createElement("a"); a.href = "mailto:" + CM.links.email; a.textContent = CM.links.email; cst.appendChild(document.createTextNode(" ")); cst.appendChild(a); }
   }
   function sending(on) { csend.disabled = on; $("span", csend).textContent = t(on ? "cf.sending" : "cf.send"); }
+  function counter() { $("#cfCount").textContent = fMsg.value.length + " / " + LIM.msgMax; }
+  function sentLog() {
+    var now = Date.now(), log;
+    try { log = JSON.parse(store.get("cm-cf-sent") || "[]"); } catch (e) { log = []; }
+    return (Array.isArray(log) ? log : []).filter(function (x) { return x && now - x.t < LIM.day; });
+  }
+  function hash(s) {
+    s = s.toLowerCase().replace(/\s+/g, " ").trim();
+    for (var h = 5381, i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0;
+    return h;
+  }
+  function check() {
+    var bad = [], e = fEmail.value.trim(), d = fDevice.value.trim(), l = fLevel.value, m = fMsg.value.trim();
+    if (e.length > LIM.emailMax || !/^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[A-Za-z]{2,}$/.test(e)) bad.push([fEmail, "v.email"]);
+    if (d && (d.length > LIM.deviceMax || d.split(/\s+/).length > LIM.deviceWords || !/^[\p{L}\p{N} .,()\/+-]+$/u.test(d))) bad.push([fDevice, "v.device"]);
+    if (l && !/^[0-9]{1,3}$/.test(l)) bad.push([fLevel, "v.level"]);
+    if (m.length < LIM.msgMin || m.length > LIM.msgMax) bad.push([fMsg, "v.msg"]);
+    else if ((m.match(/https?:\/\/|www\./gi) || []).length > LIM.links) bad.push([fMsg, "v.links"]);
+    fields.forEach(function (f) { f.setCustomValidity(""); });
+    bad.forEach(function (x) { x[0].setCustomValidity(t(x[1])); });
+    if (bad.length) bad[0][0].reportValidity();
+    return !bad.length;
+  }
+  fields.forEach(function (f) { f.addEventListener("input", function () { f.setCustomValidity(""); }); });
+  // Level: yalnız rakam, en fazla 3 hane; boşluk ve harf yazılırken silinir
+  fLevel.addEventListener("input", function () { var v = fLevel.value.replace(/\D/g, "").slice(0, 3); if (v !== fLevel.value) fLevel.value = v; });
+  fMsg.addEventListener("input", counter);
   $$("[data-open-contact]").forEach(function (b) { b.addEventListener("click", function (e) {
-    e.preventDefault(); var d = $("#cfDevice"); if (!d.value) d.value = guessDevice(); status(); cdlg.showModal(); setTimeout(function () { $("#cfEmail").focus(); }, 50);
+    e.preventDefault(); if (!fDevice.value) fDevice.value = guessDevice(); status(); counter(); openedAt = Date.now();
+    cdlg.showModal(); setTimeout(function () { fEmail.focus(); }, 50);
   }); });
   $("#contactForm").addEventListener("submit", function (e) {
     e.preventDefault();
     var form = this;
     if ($("#cfHoney").value) return; // spam botu gizli alanı doldurdu
-    var topic = $("#cfTopic"), label = topic.options[topic.selectedIndex].text;
-    var email = $("#cfEmail").value.trim();
+    if (!check()) return;
+    if (Date.now() - openedAt < LIM.minFill) { status("warn", t("cf.fast")); return; }
+    var log = sentLog(), h = hash(fMsg.value);
+    if (log.some(function (x) { return x.h === h; })) { status("warn", t("cf.dup")); return; }
+    if (log.length >= LIM.perDay) {
+      var at = new Date(log[0].t + LIM.day).toLocaleTimeString(lang === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" });
+      status("warn", t("cf.limit", at)); return;
+    }
+    var topic = $("#cfTopic"), label = topic.options[topic.selectedIndex].text, email = fEmail.value.trim();
     var data = {
       access_key: CM.links.formKey, subject: "[Captain Match] " + label, from_name: "Captain Match", replyto: email,
-      Email: email, Topic: label, Device: $("#cfDevice").value.trim() || "-", Level: $("#cfLevel").value.trim() || "-",
-      Message: $("#cfMsg").value.trim(), Language: lang.toUpperCase()
+      Email: email, Topic: label, Device: fDevice.value.trim() || "-", Level: fLevel.value || "-",
+      Message: fMsg.value.trim(), Language: lang.toUpperCase()
     };
     sending(true); status();
     // Düz form verisi (urlencoded) + yalnız Accept başlığı = "basit istek": tarayıcı ön kontrol (OPTIONS) atmaz.
@@ -189,7 +228,8 @@
     Promise.race([fetch(CM.links.form, { method: "POST", headers: { Accept: "application/json" }, body: body, signal: ctl ? ctl.signal : undefined }).then(function (r) { return r.json(); }), timeout])
       .then(function (j) {
         if (String(j.success) !== "true") throw new Error(j.message || "form");
-        form.reset(); $("#cfDevice").value = guessDevice(); status("ok", t("cf.ok"));
+        log.push({ t: Date.now(), h: h }); store.set("cm-cf-sent", JSON.stringify(log));
+        form.reset(); fDevice.value = guessDevice(); counter(); status("ok", t("cf.ok"));
       })
       .catch(function () { status("err", t("cf.err")); })
       .then(function () { clearTimeout(timer); sending(false); });

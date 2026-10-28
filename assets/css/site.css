@@ -446,6 +446,8 @@ dialog[open] { animation: pop .32s var(--ease-out); }
 .form-status { margin: 12px 0 0; padding: 9px 12px; border-radius: 12px; font-size: .95rem; font-weight: 600; }
 .form-status.ok { color: #1f6b35; background: rgba(63, 166, 92, .16); }
 .form-status.err { color: #9e2420; background: rgba(232, 69, 69, .12); }
+.form-status.warn { color: #7a4600; background: rgba(242, 180, 65, .22); }
+.count-msg { justify-self: end; font-size: .8rem; color: var(--wood-d); }
 .form-status a { color: inherit; word-break: break-all; }
 .form-act .btn-text { border: 0; background: none; cursor: pointer; font: 700 .95rem/1 var(--f-display); color: var(--wood-d); text-decoration: underline; text-underline-offset: 3px; }
 .form .dlg-close { top: -14px; right: -14px; }
