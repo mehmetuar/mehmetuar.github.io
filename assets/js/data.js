@@ -228,7 +228,8 @@ CM.links = {
   appStore: "https://apps.apple.com/app/id6809573977",
   play: "https://play.google.com/store/apps/details?id=com.captainmatch.app",
   email: "mehmetuar601@gmail.com",
-  // Form mesajları FormSubmit üzerinden mehmetuar601@gmail.com'a gelir (28 Ekim etkinleştirildi). Adres yerine FormSubmit'in
-  // verdiği gizli takma ad kullanılır; adres değişirse FormSubmit yeni etkinleştirme ve yeni takma ad ister.
-  form: "https://formsubmit.co/ajax/947ca201ce97b154d978d8ff5d6d9138"
+  // İletişim formu sunucusuz Web3Forms ile mehmetuar601@gmail.com'a gelir (mesaj saklanmaz, ~0,1 sn).
+  // Anahtar web3forms.com'da bu adresle alınır; herkese açık olması normaldir, yalnız bu adrese mail attırır.
+  form: "https://api.web3forms.com/submit",
+  formKey: "18e1c48a-aac0-4805-8bea-7888f99ad58a"
 };

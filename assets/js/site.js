@@ -153,7 +153,7 @@
   $("#pgPrev").addEventListener("click", function () { if (page > 0) { page--; renderBook(); } });
   $("#pgNext").addEventListener("click", function () { if (page < CM.log.length - 1) { page++; renderBook(); } });
 
-  /* ---------- iletişim: form FormSubmit üzerinden doğrudan gönderilir ---------- */
+  /* ---------- iletişim: form Web3Forms ile sunucusuz gönderilir ---------- */
   var cdlg = $("#contactDlg"), cst = $("#cfStatus"), csend = $("#cfSend");
   function guessDevice() {
     var m;
@@ -175,17 +175,17 @@
     var form = this;
     if ($("#cfHoney").value) return; // spam botu gizli alanı doldurdu
     var topic = $("#cfTopic"), label = topic.options[topic.selectedIndex].text;
+    var email = $("#cfEmail").value.trim();
     var data = {
-      email: $("#cfEmail").value.trim(), Topic: label, Device: $("#cfDevice").value.trim() || "-", Level: $("#cfLevel").value.trim() || "-",
-      Message: $("#cfMsg").value.trim(), Language: lang.toUpperCase(),
-      _subject: "[Captain Match] " + label, _template: "table", _captcha: "false"
+      access_key: CM.links.formKey, subject: "[Captain Match] " + label, from_name: "Captain Match", replyto: email,
+      Email: email, Topic: label, Device: $("#cfDevice").value.trim() || "-", Level: $("#cfLevel").value.trim() || "-",
+      Message: $("#cfMsg").value.trim(), Language: lang.toUpperCase()
     };
     sending(true); status();
     // Düz form verisi (urlencoded) + yalnız Accept başlığı = "basit istek": tarayıcı ön kontrol (OPTIONS) atmaz.
-    // FormSubmit her isteğe ~20 sn'de cevap verebiliyor; ön kontrol bunu ikiye katlıyordu (28 Ekim ölçümü).
     var body = new URLSearchParams(), ctl = window.AbortController ? new AbortController() : null, timer;
     Object.keys(data).forEach(function (k) { body.append(k, data[k]); });
-    var timeout = new Promise(function (_, rej) { timer = setTimeout(function () { if (ctl) ctl.abort(); rej(new Error("timeout")); }, 45000); });
+    var timeout = new Promise(function (_, rej) { timer = setTimeout(function () { if (ctl) ctl.abort(); rej(new Error("timeout")); }, 20000); });
     Promise.race([fetch(CM.links.form, { method: "POST", headers: { Accept: "application/json" }, body: body, signal: ctl ? ctl.signal : undefined }).then(function (r) { return r.json(); }), timeout])
       .then(function (j) {
         if (String(j.success) !== "true") throw new Error(j.message || "form");
