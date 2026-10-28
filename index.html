@@ -2,372 +2,237 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Captain Match: Pirate Boat Jam – Support</title>
-<meta name="description" content="Support and info for Captain Match: Pirate Boat Jam — a colorful boat jam puzzle with a pirate twist for iOS and Android. FAQ, how to play and contact.">
-<meta property="og:title" content="Captain Match: Pirate Boat Jam">
-<meta property="og:description" content="Sail pirate boats out of the jam, sort the crew by color and beat the tide!">
-<meta property="og:image" content="https://mehmetuar.github.io/assets/banner.jpg?v=2">
-<meta property="og:type" content="website">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Captain Match: Pirate Boat Jam</title>
+<meta name="description" content="Beat the tide, sort the crew and find the treasure. A colorful boat jam puzzle with a pirate crew, free on iPhone, iPad and Android.">
 <meta name="theme-color" content="#10233d">
+<meta name="apple-itunes-app" content="app-id=6809573977">
+<link rel="canonical" href="https://mehmetuar.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mehmetuar.github.io/">
+<meta property="og:title" content="Captain Match: Pirate Boat Jam">
+<meta property="og:description" content="Beat the tide, sort the crew and find the treasure.">
+<meta property="og:image" content="https://mehmetuar.github.io/assets/banner.jpg?v=2">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2">
 <link rel="icon" type="image/png" sizes="256x256" href="assets/icon-256.png?v=2">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png?v=2">
-<style>
-  :root {
-    color-scheme: dark;
-    --navy: #10233d;
-    --navy-2: #163052;
-    --navy-3: #1d3c66;
-    --sea: #2a9bd6;
-    --sea-2: #58c5e6;
-    --gold: #f2b441;
-    --gold-2: #ffd36a;
-    --cream: #fff5e1;
-    --muted: rgba(255, 245, 225, .74);
-    --red: #e04a4a;
-    --green: #4ec26a;
-    --purple: #a06ad8;
-    --card: rgba(255, 255, 255, .07);
-    --line: rgba(255, 255, 255, .12);
-    --radius: 18px;
-    --max: 1080px;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: var(--navy);
-    color: var(--cream);
-    overflow-x: hidden;
-  }
-  img { display: block; max-width: 100%; height: auto; }
-  a { color: var(--gold); }
-  h1, h2, h3 { line-height: 1.15; margin: 0; }
-  h2 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); color: var(--gold-2); }
-  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
-  section { padding: 64px 0; }
-  .kicker {
-    display: inline-block; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--sea-2); margin-bottom: 8px;
-  }
-  .lead { color: var(--muted); max-width: 640px; margin: 10px 0 0; }
-
-  /* header */
-  header {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(16, 35, 61, .85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-  }
-  .bar { display: flex; align-items: center; gap: 12px; height: 64px; }
-  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--cream); font-weight: 800; font-size: 1.05rem; }
-  .brand img { width: 40px; height: 40px; border-radius: 11px; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
-  nav { margin-left: auto; display: flex; gap: 4px; }
-  nav a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: .92rem; padding: 8px 10px; border-radius: 10px; }
-  nav a:hover { color: var(--cream); background: var(--card); }
-  nav a.cta { color: var(--navy); background: var(--gold); }
-  nav a.cta:hover { background: var(--gold-2); color: var(--navy); }
-  @media (max-width: 640px) { nav a:not(.cta) { display: none; } }
-
-  /* hero */
-  .hero {
-    position: relative; overflow: hidden; padding: 56px 0 0;
-    background:
-      radial-gradient(900px 420px at 15% -10%, rgba(255, 190, 120, .35), transparent 60%),
-      radial-gradient(700px 400px at 90% 10%, rgba(88, 197, 230, .28), transparent 60%),
-      linear-gradient(180deg, #1c3a63 0%, #14304f 55%, var(--navy) 100%);
-  }
-  .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 32px; align-items: end; }
-  .hero-copy { padding-bottom: 64px; }
-  .hero-copy .banner { width: min(100%, 520px); margin: 0 0 14px; filter: drop-shadow(0 12px 24px rgba(0,0,0,.35)); border-radius: 18px; }
-  .hero-copy h1 { font-size: clamp(1.4rem, 2.6vw, 1.8rem); color: var(--cream); }
-  .hero-copy h1 span { color: var(--gold-2); }
-  .hero-copy p { font-size: 1.1rem; color: var(--muted); max-width: 560px; }
-  .stores { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
-  .store {
-    display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px 11px 14px; border-radius: 14px;
-    background: #000; color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,.22);
-    box-shadow: 0 6px 18px rgba(0,0,0,.35); transition: transform .15s ease;
-  }
-  .store:hover { transform: translateY(-2px); }
-  .store svg { width: 26px; height: 26px; flex: none; }
-  .store small { display: block; font-size: .68rem; line-height: 1; opacity: .8; }
-  .store b { display: block; font-size: 1.05rem; line-height: 1.15; }
-  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-  .pill { font-size: .82rem; font-weight: 600; padding: 5px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--muted); }
-  .hero-art { position: relative; align-self: end; }
-  .hero-art img {
-    width: 100%; max-width: 420px; margin: 0 auto; border-radius: 24px 24px 0 0;
-    box-shadow: 0 -10px 40px rgba(0,0,0,.35);
-    mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
-    -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
-  }
-  .wave { display: block; width: 100%; height: 48px; margin-top: -1px; }
-  @media (max-width: 800px) {
-    .hero .wrap { grid-template-columns: 1fr; }
-    .hero-copy { padding-bottom: 24px; }
-    .hero-art img { max-width: 340px; }
-  }
-
-  /* cards */
-  .grid { display: grid; gap: 16px; }
-  .grid > *, .hero .wrap > *, .contact > * { min-width: 0; }
-  .g3 { grid-template-columns: repeat(3, 1fr); }
-  .g4 { grid-template-columns: repeat(4, 1fr); }
-  @media (max-width: 900px) { .g3, .g4 { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 520px) { .g3, .g4 { grid-template-columns: 1fr; } }
-  .card {
-    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px;
-    position: relative; overflow: hidden;
-  }
-  .card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--accent, var(--gold)); }
-  .card h3 { font-size: 1.08rem; margin-bottom: 6px; }
-  .card p { margin: 0; color: var(--muted); font-size: .97rem; }
-  .card .ico { font-size: 1.7rem; line-height: 1; margin-bottom: 12px; }
-  .c-gold { --accent: var(--gold); }
-  .c-sea { --accent: var(--sea-2); }
-  .c-red { --accent: var(--red); }
-  .c-green { --accent: var(--green); }
-  .c-purple { --accent: var(--purple); }
-
-  /* how to play */
-  .steps { counter-reset: step; }
-  .step { display: flex; gap: 16px; align-items: flex-start; }
-  .step::after {
-    counter-increment: step; content: counter(step); order: -1;
-    flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
-    background: var(--gold); color: var(--navy); font-weight: 800; font-size: 1.1rem;
-  }
-  .step h3 { font-size: 1.05rem; }
-  .step p { margin: 2px 0 0; color: var(--muted); font-size: .97rem; }
-  .tide { background: linear-gradient(135deg, var(--navy-3), var(--navy-2)); }
-
-  /* boosters & crew */
-  .boost { text-align: center; }
-  .boost img { width: 96px; height: 96px; margin: 0 auto 10px; filter: drop-shadow(0 6px 12px rgba(0,0,0,.4)); }
-  .crew { display: flex; align-items: center; gap: 16px; }
-  .crew img { width: 96px; height: 96px; flex: none; border-radius: 50%; background: radial-gradient(circle at 50% 35%, rgba(255,255,255,.18), rgba(255,255,255,.03)); }
-  .crew h3 { font-size: 1.05rem; }
-  .crew small { color: var(--sea-2); font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; }
-  .crew p { margin: 4px 0 0; color: var(--muted); font-size: .95rem; }
-
-  /* screenshots */
-  .shots { display: flex; gap: 16px; overflow-x: auto; padding: 8px 16px 20px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
-  .shots figure { flex: 0 0 auto; width: 230px; margin: 0; scroll-snap-align: start; }
-  .shots img { border-radius: 22px; border: 3px solid rgba(255,255,255,.18); box-shadow: 0 12px 30px rgba(0,0,0,.45); }
-  .shots figcaption { text-align: center; font-size: .88rem; color: var(--muted); margin-top: 10px; }
-  .shots-wrap { max-width: var(--max); margin: 0 auto; }
-  .shots figure:first-child { margin-left: auto; }
-  .shots figure:last-child { margin-right: auto; }
-
-  /* support */
-  .support { background: linear-gradient(180deg, var(--navy) 0%, #0c1b30 100%); }
-  .contact {
-    display: grid; grid-template-columns: 1.2fr .8fr; gap: 24px; align-items: center;
-    background: linear-gradient(135deg, rgba(242,180,65,.18), rgba(88,197,230,.14)); border: 1px solid rgba(242,180,65,.35);
-    border-radius: 24px; padding: 28px;
-  }
-  @media (max-width: 720px) { .contact { grid-template-columns: 1fr; } }
-  .contact h2 { color: var(--cream); }
-  .contact p { color: var(--muted); }
-  .btn {
-    display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 14px; text-decoration: none;
-    background: var(--gold); color: var(--navy); font-weight: 800; font-size: 1.05rem; box-shadow: 0 8px 22px rgba(242,180,65,.35);
-    transition: transform .15s ease, background .15s ease;
-  }
-  .btn:hover { background: var(--gold-2); transform: translateY(-2px); }
-  .contact ul { margin: 12px 0 0; padding-left: 18px; color: var(--muted); font-size: .95rem; }
-  .contact li { margin: 4px 0; }
-  .faq { margin-top: 36px; display: grid; gap: 10px; }
-  details { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 0 18px; }
-  summary { cursor: pointer; font-weight: 700; padding: 15px 0; list-style: none; display: flex; align-items: center; gap: 12px; }
-  summary::-webkit-details-marker { display: none; }
-  summary::before { content: "+"; flex: none; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; background: var(--gold); color: var(--navy); font-weight: 900; }
-  details[open] summary::before { content: "–"; }
-  details p { margin: 0 0 16px 38px; color: var(--muted); font-size: .97rem; }
-  details p + p { margin-top: -8px; }
-
-  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; font-size: .9rem; color: var(--muted); }
-  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; }
-  footer .brand { font-size: .95rem; }
-  footer .brand img { width: 28px; height: 28px; border-radius: 8px; }
-  footer .links { margin-left: auto; display: flex; flex-wrap: wrap; gap: 16px; }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .store, .btn { transition: none; }
-  }
-</style>
+<link rel="preload" href="assets/fonts/baloo2-bold.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Captain Match: Pirate Boat Jam","applicationCategory":"GameApplication","operatingSystem":"iOS, Android","url":"https://mehmetuar.github.io/","image":"https://mehmetuar.github.io/assets/icon-256.png","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"sameAs":["https://apps.apple.com/app/id6809573977","https://play.google.com/store/apps/details?id=com.captainmatch.app"]}</script>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
 
-<header>
-  <div class="wrap bar">
-    <a class="brand" href="#top"><img src="assets/icon-180.png?v=2" alt="" width="40" height="40">Captain Match</a>
-    <nav>
-      <a href="#features">Features</a>
-      <a href="#how">How to play</a>
-      <a href="#faq">FAQ</a>
-      <a class="cta" href="#support">Support</a>
-    </nav>
+<!-- İkonlar: indirme ikonu adayları A/B/C + arayüz ikonları -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="wg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dba264"/><stop offset="1" stop-color="#9e5f28"/></linearGradient>
+    <linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a6"/><stop offset=".55" stop-color="#f2b441"/><stop offset="1" stop-color="#d4921c"/></linearGradient>
+  </defs>
+  <!-- A · Demir At: suya inen çapa, kolları aşağı ok -->
+  <symbol id="dl-a" viewBox="0 0 32 32">
+    <g fill="none" stroke="#2a1a0c" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.6">
+      <circle cx="16" cy="5.4" r="2.6"/><path d="M16 8.2V23M10.2 11.8h11.6M6.8 15.6l9.2 9.2 9.2-9.2"/><path d="M8.5 29.3q3.75-2 7.5 0t7.5 0" stroke-width="3.6"/>
+    </g>
+    <g fill="none" stroke="url(#gg)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5">
+      <circle cx="16" cy="5.4" r="2.6"/><path d="M16 8.2V23M10.2 11.8h11.6M6.8 15.6l9.2 9.2 9.2-9.2"/>
+    </g>
+    <path d="M8.5 29.3q3.75-2 7.5 0t7.5 0" fill="none" stroke="#7FD4E8" stroke-width="1.7" stroke-linecap="round"/>
+    <path d="M14.9 9.6v6M11 11.3h3" stroke="#fff6d6" stroke-width=".9" stroke-linecap="round" opacity=".85"/>
+  </symbol>
+  <!-- B · Hazine Sandığı: sandığa inen ok -->
+  <symbol id="dl-b" viewBox="0 0 32 32">
+    <path d="M5 16.5h22v9.2a2.3 2.3 0 0 1-2.3 2.3H7.3A2.3 2.3 0 0 1 5 25.7z" fill="url(#wg)" stroke="#2a1a0c" stroke-width="1.9" stroke-linejoin="round"/>
+    <path d="M5 16.5v-3.2a3.8 3.8 0 0 1 3.8-3.8h14.4a3.8 3.8 0 0 1 3.8 3.8v3.2z" fill="#8a5326" stroke="#2a1a0c" stroke-width="1.9" stroke-linejoin="round"/>
+    <path d="M9 9.8v18M23 9.8v18" stroke="#2a1a0c" stroke-width="3.6"/><path d="M9 9.8v18M23 9.8v18" stroke="url(#gg)" stroke-width="1.8"/>
+    <path d="M13.2 1.8h5.6v7.4h4.1L16 17.6 9.1 9.2h4.1z" fill="#fff5e1" stroke="#2a1a0c" stroke-width="1.9" stroke-linejoin="round"/>
+    <rect x="13.6" y="19.6" width="4.8" height="5" rx="1.1" fill="url(#gg)" stroke="#2a1a0c" stroke-width="1.5"/>
+  </symbol>
+  <!-- C · Tahta Ok: halatla bağlı, aşağı bakan tahta ok -->
+  <symbol id="dl-c" viewBox="0 0 32 32">
+    <path d="M11.2 2.2h9.6a1.6 1.6 0 0 1 1.6 1.6v10.6h4.9a1 1 0 0 1 .76 1.66L16.8 28.4a1.05 1.05 0 0 1-1.6 0L3.94 16.06a1 1 0 0 1 .76-1.66h4.9V3.8a1.6 1.6 0 0 1 1.6-1.6z" fill="url(#wg)" stroke="#2a1a0c" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M13.4 4.6v8.6M18.4 5.4v7M8.6 17.6l5.2 5.8M23.4 17.6l-3.2 3.6" stroke="#7d4a1e" stroke-width="1" stroke-linecap="round" opacity=".8"/>
+    <path d="M9.6 7.6l12.8 2.6M9.6 10.4l12.8 2.6" stroke="#2a1a0c" stroke-width="2.9" stroke-linecap="round"/>
+    <path d="M9.6 7.6l12.8 2.6M9.6 10.4l12.8 2.6" stroke="#ecd09a" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="16" cy="18.4" r="1.25" fill="#4a2c14"/><circle cx="15.6" cy="18" r=".45" fill="#e9c68c"/>
+  </symbol>
+  <symbol id="i-buoy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.8"/><path d="M5.6 5.6l3.7 3.7M14.7 14.7l3.7 3.7M18.4 5.6l-3.7 3.7M9.3 14.7l-3.7 3.7"/></g></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.6 6.6 12 13l8.4-6.4"/></g></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9s-1.9-.9-3.2-.8c-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.6-1-2.6-3.8zM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.5 2.8-1.3z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="#34a853" d="M3.6 2.3 13.9 12 3.6 21.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1z"/><path fill="#fbbc04" d="m17.4 15.3-3.5-3.3 3.5-3.3 3.9 2.2c1 .6 1 1.6 0 2.2z"/><path fill="#4285f4" d="M13.9 12 3.6 2.3c.3-.2.8-.2 1.2 0l12.6 7.4z"/><path fill="#ea4335" d="m13.9 12 3.5 3.3-12.6 7.4c-.4.2-.9.2-1.2 0z"/></symbol>
+</svg>
+
+<a class="sr" href="#main">Skip to content</a>
+
+<!-- NAVBAR -->
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/img/app-icon.webp" alt="" width="42" height="42"><span class="toon">Captain Match</span></a>
+    <div class="nav-links">
+      <a href="#game" data-i18n="nav.game">Game</a>
+      <a href="#voyage" data-i18n="nav.worlds">Worlds</a>
+      <a href="#crew" data-i18n="nav.crew">Crew</a>
+      <a href="#story" data-i18n="nav.story">Story</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+    </div>
+    <div class="nav-act">
+      <a class="btn btn-ghost" href="#support" data-i18n-aria="nav.support"><svg aria-hidden="true"><use href="#i-buoy"/></svg><span class="act-label" data-i18n="nav.support">Support</span></a>
+      <button class="btn btn-ghost" type="button" data-open-contact data-i18n-aria="nav.contact"><svg aria-hidden="true"><use href="#i-mail"/></svg><span class="act-label" data-i18n="nav.contact">Contact</span></button>
+      <div class="dl-wrap">
+        <a class="btn btn-gold" id="navDl" href="#download" aria-haspopup="true" aria-expanded="false"><svg class="dl-ico" aria-hidden="true"><use href="#dl-c"/></svg><span data-i18n="nav.download">Download</span></a>
+        <div class="dl-pop" id="dlPop" hidden>
+          <h3 class="toon gold" data-i18n="pop.title">Get Captain Match</h3>
+          <div class="row">
+            <img class="qr" src="assets/img/qr-get.svg" alt="" width="118" height="118">
+            <div class="stores">
+              <a class="store" data-store="ios" href="https://apps.apple.com/app/id6809573977"><svg aria-hidden="true"><use href="#i-apple"/></svg><span><small data-i18n="badge.ios.s">Download on the</small><b>App Store</b></span></a>
+              <a class="store" data-store="android" href="https://play.google.com/store/apps/details?id=com.captainmatch.app"><svg aria-hidden="true"><use href="#i-play"/></svg><span><small data-i18n="badge.gp.s">GET IT ON</small><b>Google Play</b></span></a>
+            </div>
+          </div>
+          <p data-i18n="pop.qr">Scan with your phone camera.</p>
+        </div>
+      </div>
+      <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="tr" aria-pressed="false">TR</button></div>
+      <button class="btn btn-ghost btn-icon menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="drawer" data-i18n-aria="nav.menu"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
   </div>
+</nav>
+<div class="drawer" id="drawer" hidden>
+  <a href="#game" data-i18n="nav.game">Game</a>
+  <a href="#voyage" data-i18n="nav.worlds">Worlds</a>
+  <a href="#crew" data-i18n="nav.crew">Crew</a>
+  <a href="#story" data-i18n="nav.story">Story</a>
+  <a href="#faq" data-i18n="nav.faq">FAQ</a>
+  <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="tr" aria-pressed="false">TR</button></div>
+</div>
+
+<main id="main">
+
+<!-- HERO · Yazlık gündüz -->
+<header class="hero" id="top">
+  <div class="clouds" aria-hidden="true">
+    <img src="assets/img/clouds/kabarcik_a.webp" alt="" style="top:14%;width:180px;animation-duration:95s;animation-delay:-30s">
+    <img src="assets/img/clouds/kabarcik_b.webp" alt="" style="top:4%;width:120px;animation-duration:120s;animation-delay:-80s;opacity:.7">
+    <img src="assets/img/clouds/kabarcik_a.webp" alt="" style="top:30%;width:110px;animation-duration:140s;animation-delay:-10s;opacity:.6">
+  </div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <img class="banner" src="assets/img/banner.webp" alt="Captain Match" width="900" height="722">
+      <h1 class="toon" data-i18n="hero.title">Beat the tide. Sort the crew. Find the treasure.</h1>
+      <p class="lead" data-i18n="hero.lead">A colorful pirate boat puzzle.</p>
+      <div class="stores">
+        <a class="store" data-store="ios" href="https://apps.apple.com/app/id6809573977"><svg aria-hidden="true"><use href="#i-apple"/></svg><span><small data-i18n="badge.ios.s">Download on the</small><b>App Store</b></span></a>
+        <a class="store" data-store="android" href="https://play.google.com/store/apps/details?id=com.captainmatch.app"><svg aria-hidden="true"><use href="#i-play"/></svg><span><small data-i18n="badge.gp.s">GET IT ON</small><b>Google Play</b></span></a>
+      </div>
+      <ul class="perks">
+        <li style="--c:#1E9BD7" data-i18n="perk.tide">Tide puzzles</li>
+        <li style="--c:#8E5BC7" data-i18n="perk.lang">14 languages</li>
+        <li style="--c:#F2B441" data-i18n="perk.free">Free to play</li>
+      </ul>
+    </div>
+  </div>
+  <div class="hero-art"><img src="assets/img/hero-2400.webp" srcset="assets/img/hero-1200.webp 1200w, assets/img/hero-2400.webp 2400w" sizes="(max-width: 960px) 100vw, 62vw" alt="Captain Barba, Pip and Moon on a little island surrounded by colorful boats full of crew" width="2400" height="1029" fetchpriority="high"></div>
+  <svg class="waves" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#55c3ea" opacity=".7" d="M0 40c90 18 180 18 270 0s180-18 270 0 180 18 270 0 180-18 270 0 180 18 270 0 180-18 270 0 180 18 270 0 180-18 270 0V90H0z"/>
+    <path fill="#2fb3e2" d="M0 56c90 14 180 14 270 0s180-14 270 0 180 14 270 0 180-14 270 0 180 14 270 0 180-14 270 0 180 14 270 0 180-14 270 0V90H0z"/>
+  </svg>
 </header>
 
-<main id="top">
-
-<section class="hero">
+<!-- NASIL OYNANIR · deniz -->
+<section class="sea" id="game">
   <div class="wrap">
-    <div class="hero-copy">
-      <img class="banner" src="assets/banner.jpg?v=2" alt="Captain Barba, cabin boy Pip, Moon the sea wolf and the colorful crew on a treasure island" width="1200" height="586">
-      <h1>Captain Match: Pirate Boat Jam <span>· Ship Escape: Color Sort Puzzle</span></h1>
-      <p>Beat the tide! Sail pirate boats out of a jammed harbor so every crew boards a boat of its color, from a sunny cove through the frozen Glacier world to the Moonlit seas.</p>
-      <div class="stores">
-        <a class="store" href="https://apps.apple.com/app/id6809573977" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.42 2.2-1.25 3.06-.98 1.02-2.16 1.6-3.39 1.5-.04-1.13.45-2.26 1.24-3.1.86-.92 2.27-1.53 3.4-1.46zm4.18 16.68c-.44 1.02-.65 1.47-1.22 2.37-.79 1.25-1.9 2.8-3.28 2.81-1.22.01-1.54-.8-3.2-.79-1.66.01-2.01.8-3.24.79-1.38-.01-2.43-1.41-3.22-2.66-2.22-3.5-2.45-7.6-1.08-9.78.97-1.55 2.5-2.46 3.94-2.46 1.47 0 2.39.81 3.6.81 1.18 0 1.9-.81 3.6-.81 1.28 0 2.64.7 3.6 1.9-3.17 1.74-2.65 6.26.5 7.82z"/></svg>
-          <span><small>Download on the</small><b>App Store</b></span>
-        </a>
-        <a class="store" href="https://play.google.com/store/apps/details?id=com.captainmatch.app" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34a853" d="M3.6 2.3 13.9 12 3.6 21.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1z"/><path fill="#fbbc04" d="m17.4 15.3-3.5-3.3 3.5-3.3 3.9 2.2c1 .6 1 1.6 0 2.2z"/><path fill="#4285f4" d="M13.9 12 3.6 2.3c.3-.2.8-.2 1.2 0l12.6 7.4z"/><path fill="#ea4335" d="m13.9 12 3.5 3.3-12.6 7.4c-.4.2-.9.2-1.2 0z"/></svg>
-          <span><small>Get it on</small><b>Google Play</b></span>
-        </a>
-      </div>
-      <div class="pills">
-        <span class="pill">🌊 Tide-based puzzles</span>
-        <span class="pill">🏴‍☠️ Pirate crew</span>
-        <span class="pill">🎨 Color-blind friendly</span>
-        <span class="pill">🌍 14 languages</span>
-        <span class="pill">🆓 Free to play</span>
-      </div>
+    <div class="sec-head reveal">
+      <span class="kicker" data-i18n="how.kicker">How it plays</span>
+      <h2 class="toon" data-i18n="how.title">Clear the jam before the tide turns</h2>
     </div>
-    <div class="hero-art">
-      <img src="assets/hero-family.jpg?v=2" alt="Captain Barba, cabin boy Pip, Moon the sea wolf and the colorful crew on a sunny beach" width="840" height="1817" loading="eager">
-    </div>
-  </div>
-  <svg class="wave" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24c120 16 240 24 360 16s240-32 360-24 240 32 360 24 240-24 360-8v16H0z" fill="#10233d"/></svg>
-</section>
-
-<section id="features">
-  <div class="wrap">
-    <span class="kicker">Features</span>
-    <h2>A boat jam puzzle where the tide changes the rules</h2>
-    <p class="lead">Tap a boat with a clear path to sail it to the dock, and the crew waiting on the pier hops aboard the boat of their color. Dock space is limited, and the water keeps rising and falling.</p>
-    <div class="grid g3" style="margin-top:28px">
-      <div class="card c-sea"><div class="ico">🌊</div><h3>The tide decides</h3><p>Shallow passages only open at high water. A boat that is stuck now may sail free a few seconds later. Time your moves and plan your order.</p></div>
-      <div class="card c-gold"><div class="ico">🗺️</div><h3>Chapters to explore</h3><p>Sail through Dawn Cove, Kraken Strait, Lighthouse Isle and more, following the Logbook story to the Great Tide Treasure.</p></div>
-      <div class="card c-purple"><div class="ico">🧊</div><h3>Summer, Glacier &amp; Moonlit worlds</h3><p>From a sunny summer harbor to the icy Glacier world with frozen boats and icebergs that block the way, then on to the glowing night waters of the Moonlit world.</p></div>
-      <div class="card c-red"><div class="ico">🐙</div><h3>Tricky obstacles</h3><p>The Kraken grabs boats, grounded boats sit in the way, docks get narrow and storm levels race the clock.</p></div>
-      <div class="card c-green"><div class="ico">👁️</div><h3>Color-blind friendly</h3><p>Every color has its own symbol, so every player can tell the boats and crew apart at a glance.</p></div>
-      <div class="card c-sea"><div class="ico">⚡</div><h3>Quick levels</h3><p>Easy to learn, satisfying to master. Short levels you can play anywhere, in 14 languages.</p></div>
+    <div class="how">
+      <figure class="phone reveal"><img src="assets/img/shots/summer.webp" alt="A summer harbor level with colorful boats and crew waiting on the pier" loading="lazy" width="560" height="1211"></figure>
+      <ol class="steps">
+        <li class="step reveal"><h3 data-i18n="s1.t">Tap a boat</h3><p data-i18n="s1.p">Tap a boat with a clear path.</p></li>
+        <li class="step reveal"><h3 data-i18n="s2.t">The crew boards</h3><p data-i18n="s2.p">Crew board the boat of their color.</p></li>
+        <li class="step reveal"><h3 data-i18n="s3.t">Full boats set sail</h3><p data-i18n="s3.p">Get everyone aboard to win.</p></li>
+        <li class="step tide reveal"><div><h3 data-i18n="s4.t">Read the tide</h3><p data-i18n="s4.p">Green clock: shallow passages open.</p></div><img src="assets/img/icons/gecit_gelgit.webp" alt="" width="64" height="64"></li>
+      </ol>
     </div>
   </div>
 </section>
 
-<section id="how" class="tide">
+<!-- SEFER · Yazlık → Buzul → Yakamoz -->
+<div class="voyage-intro" id="voyage">
+  <div class="wrap sec-head reveal" style="margin-bottom:0">
+    <span class="kicker" data-i18n="voy.kicker">The voyage</span>
+    <h2 class="toon" data-i18n="voy.title">From sunny coves to moonlit seas</h2>
+    <p data-i18n="voy.lead">Every sea has its own crew. Pick one and your boats sail with their wake.</p>
+  </div>
+</div>
+<span id="crew"></span>
+<div id="worlds"></div>
+
+<!-- SEYİR DEFTERİ -->
+<section class="cabin" id="story">
   <div class="wrap">
-    <span class="kicker">How to play</span>
-    <h2>Four rules, endless jams</h2>
-    <div class="grid g4 steps" style="margin-top:28px">
-      <div class="card c-gold step"><div><h3>Tap a boat</h3><p>Tap a boat with a clear path to send it to the dock.</p></div></div>
-      <div class="card c-gold step"><div><h3>Crew board in order</h3><p>Crew board from the left, in order, onto a boat of their color.</p></div></div>
-      <div class="card c-gold step"><div><h3>Full boats set sail</h3><p>Get every crew member aboard to win the level!</p></div></div>
-      <div class="card c-gold step"><div><h3>Watch the tide clock</h3><p>When it turns green, shallow channels open.</p></div></div>
+    <div class="sec-head reveal">
+      <span class="kicker" data-i18n="story.kicker">Captain's Logbook</span>
+      <h2 class="toon gold" data-i18n="story.title">The Legend of the Great Tide</h2>
     </div>
+    <div class="trio reveal">
+      <figure><img src="assets/img/chars/kaptan_master.webp" alt="" loading="lazy"><figcaption><b data-i18n="c.barba">Captain Barba</b><span data-i18n="c.barba.p">Reads the tide like a book.</span></figcaption></figure>
+      <figure><img src="assets/img/chars/kurt_master.webp" alt="" loading="lazy"><figcaption><b>Moon</b><span data-i18n="c.moon.p">One howl stops the tide.</span></figcaption></figure>
+      <figure><img src="assets/img/chars/mico_master.webp" alt="" loading="lazy"><figcaption><b data-i18n="c.pip">Pip</b><span data-i18n="c.pip.p">Whistle always ready.</span></figcaption></figure>
+    </div>
+    <div class="book reveal" aria-roledescription="book">
+      <div class="spread" id="spread" aria-live="polite"></div>
+    </div>
+    <div class="book-nav">
+      <button class="btn" type="button" id="pgPrev" data-i18n-aria="book.prev"><svg aria-hidden="true"><use href="#i-left"/></svg></button>
+      <span class="count" id="pgCount"></span>
+      <button class="btn" type="button" id="pgNext" data-i18n-aria="book.next"><svg aria-hidden="true"><use href="#i-right"/></svg></button>
+    </div>
+    <div class="tabs" id="pgTabs"></div>
   </div>
 </section>
 
-<section id="boosters">
-  <div class="wrap">
-    <span class="kicker">Boosters &amp; crew</span>
-    <h2>Handy help for tricky moments</h2>
-    <div class="grid g3" style="margin-top:28px">
-      <div class="card c-gold boost"><img src="assets/booster-anchor.png?v=2" alt="" width="96" height="96"><h3>Anchor</h3><p>Pulls a boat past any blocker straight to the dock.</p></div>
-      <div class="card c-green boost"><img src="assets/booster-howl.png?v=2" alt="" width="96" height="96"><h3>Howl</h3><p>Freezes the tide so open channels stay open.</p></div>
-      <div class="card c-sea boost"><img src="assets/booster-whistle.png?v=2" alt="" width="96" height="96"><h3>Whistle</h3><p>Fills a docked boat with its crew and sends it off.</p></div>
+<!-- İNDİR · gece -->
+<section class="final" id="download">
+  <img class="side l" src="assets/img/chars/kaptan_tamboy.webp" alt="" loading="lazy">
+  <img class="side r" src="assets/img/chars/kurt_uluma.webp" alt="" loading="lazy">
+  <div class="wrap reveal">
+    <h2 class="toon gold" data-i18n="dl.title">Weigh anchor, crew!</h2>
+    <p data-i18n="dl.lead">Free on the App Store and Google Play.</p>
+    <div class="stores">
+      <a class="store" data-store="ios" href="https://apps.apple.com/app/id6809573977"><svg aria-hidden="true"><use href="#i-apple"/></svg><span><small data-i18n="badge.ios.s">Download on the</small><b>App Store</b></span></a>
+      <a class="store" data-store="android" href="https://play.google.com/store/apps/details?id=com.captainmatch.app"><svg aria-hidden="true"><use href="#i-play"/></svg><span><small data-i18n="badge.gp.s">GET IT ON</small><b>Google Play</b></span></a>
     </div>
-    <div class="grid g3" style="margin-top:16px">
-      <div class="card c-purple crew"><img src="assets/char-captain.png" alt="" width="96" height="96"><div><small>The captain</small><h3>Captain Barba</h3><p>Leads the hunt for the Great Tide Treasure.</p></div></div>
-      <div class="card c-green crew"><img src="assets/char-wolf.png" alt="" width="96" height="96"><div><small>The sea wolf</small><h3>Moon</h3><p>One howl and the tide stands still.</p></div></div>
-      <div class="card c-gold crew"><img src="assets/char-pip.png" alt="" width="96" height="96"><div><small>The cabin boy</small><h3>Pip</h3><p>Always ready with a whistle and a grin.</p></div></div>
-    </div>
+    <div class="qr-card"><img src="assets/img/qr-get.svg" alt="" width="92" height="92"><span data-i18n="dl.qr">Scan with your phone camera</span></div>
   </div>
 </section>
 
-<section id="screens" style="padding-bottom:40px">
+<!-- DESTEK + SSS -->
+<section class="help" id="support">
   <div class="wrap">
-    <span class="kicker">Screenshots</span>
-    <h2>Sunny coves, frozen seas, moonlit waters and a crew to collect</h2>
-  </div>
-  <div class="shots-wrap">
-    <div class="shots">
-      <figure><img src="assets/shot-summer.jpg?v=2" alt="Summer harbor level with colorful boats" width="508" height="1100" loading="lazy"><figcaption>Summer harbor</figcaption></figure>
-      <figure><img src="assets/shot-glacier.jpg?v=2" alt="Glacier world level with icebergs and frozen boats" width="508" height="1100" loading="lazy"><figcaption>Glacier world</figcaption></figure>
-      <figure><img src="assets/shot-moonlit.jpg?v=2" alt="Moonlit world level at night" width="508" height="1100" loading="lazy"><figcaption>Moonlit world</figcaption></figure>
-      <figure><img src="assets/shot-map.jpg?v=2" alt="Summer chapter map" width="508" height="1100" loading="lazy"><figcaption>Summer map</figcaption></figure>
-      <figure><img src="assets/shot-map-glacier.jpg" alt="Glacier chapter map" width="508" height="1100" loading="lazy"><figcaption>Glacier map</figcaption></figure>
-      <figure><img src="assets/shot-map-moonlit.jpg" alt="Moonlit chapter map" width="508" height="1100" loading="lazy"><figcaption>Moonlit map</figcaption></figure>
-      <figure><img src="assets/shot-crew.jpg?v=2" alt="Crew collection" width="508" height="1100" loading="lazy"><figcaption>Crew collection</figcaption></figure>
+    <div class="sec-head reveal">
+      <span class="kicker" data-i18n="help.kicker">Support</span>
+      <h2 class="toon" data-i18n="help.title">Need a hand, captain?</h2>
     </div>
-  </div>
-</section>
-
-<section id="support" class="support">
-  <div class="wrap">
-    <div class="contact">
-      <div>
-        <span class="kicker">Support</span>
-        <h2>Need a hand, captain?</h2>
-        <p>Questions, bug reports, purchase problems or feedback: send us an email and we will get back to you as soon as we can.</p>
-        <ul>
-          <li>Your device model and OS version (e.g. iPhone 13, iOS 18)</li>
-          <li>The level number and what happened</li>
-          <li>For purchases: your store receipt or order number</li>
-        </ul>
-      </div>
-      <div style="text-align:center">
-        <a class="btn" href="mailto:mehmetuar601@gmail.com?subject=Captain%20Match%20support">✉️ mehmetuar601@gmail.com</a>
-        <p style="margin:14px 0 0;font-size:.9rem">Privacy: <a href="https://mehmetuar.github.io/captainmatch-privacy/">Privacy Policy</a></p>
-      </div>
+    <div class="help-cards">
+      <div class="help-card reveal"><span class="ico"><svg aria-hidden="true"><use href="#i-buoy"/></svg></span><div><h3 data-i18n="help.sup.t">Support center</h3><p data-i18n="help.sup.p">Purchases, ads, progress.</p><a class="btn btn-wood" href="#faq" data-i18n="help.sup.b">Open support</a></div></div>
+      <div class="help-card reveal"><span class="ico"><svg aria-hidden="true"><use href="#i-mail"/></svg></span><div><h3 data-i18n="help.con.t">Write to us</h3><p data-i18n="help.con.p">We read every message.</p><button class="btn btn-wood" type="button" data-open-contact data-i18n="help.con.b">Contact us</button></div></div>
     </div>
-
-    <div id="faq" class="faq">
-      <span class="kicker" style="margin-top:20px">FAQ</span>
-      <details>
-        <summary>I bought No Ads but interstitial ads still show. What should I do?</summary>
-        <p>Make sure you are signed in to the same App Store / Google account you used for the purchase, then open Settings in the game and tap <strong>Restore Purchases</strong>. If ads still appear, email us with your receipt.</p>
-      </details>
-      <details>
-        <summary>Does No Ads remove every ad?</summary>
-        <p>No Ads removes the interstitial ads between levels. Optional rewarded videos (for bonus coins and boosters) stay available, because you choose to watch them.</p>
-      </details>
-      <details>
-        <summary>I reinstalled the game and lost my progress.</summary>
-        <p>Progress is stored on your device. Deleting the game deletes its save. Purchases can always be restored from Settings › Restore Purchases.</p>
-      </details>
-      <details>
-        <summary>Why does the game need an internet connection?</summary>
-        <p>Captain Match is free to play and funded by ads, and the store, rewarded videos and purchases all need a connection. Please check Wi‑Fi or mobile data if the game will not load.</p>
-      </details>
-      <details>
-        <summary>How does the tide clock work?</summary>
-        <p>The clock at the top right shows the tide cycle. When it turns green the water is high and shallow passages open. Howl freezes the clock so an open channel stays open.</p>
-      </details>
-      <details>
-        <summary>I have trouble telling the colors apart.</summary>
-        <p>Every color has its own symbol on the boats and on the crew's bandanas, so you can match by symbol instead of color.</p>
-      </details>
-      <details>
-        <summary>How do I change the language?</summary>
-        <p>Open Settings in the game and pick a language. Captain Match is available in 14 languages.</p>
-      </details>
-      <details>
-        <summary>How do I manage ad privacy choices?</summary>
-        <p>Open Settings › <strong>Privacy Options</strong> in the game to review or change your consent at any time. Details are in our <a href="https://mehmetuar.github.io/captainmatch-privacy/">Privacy Policy</a>.</p>
-      </details>
-      <details>
-        <summary>I found a bug or a level that cannot be solved.</summary>
-        <p>Email us with the level number, your device and, if possible, a screenshot. Every level is tested to be solvable, but we love a good bug report.</p>
-      </details>
+    <div class="faq" id="faq">
+      <details class="reveal"><summary data-i18n="f1.q">I bought No Ads but ads still show.</summary><p data-i18n="f1.a">Sign in with the account you bought with, then Settings › Restore Purchases.</p></details>
+      <details class="reveal"><summary data-i18n="f2.q">How does the tide clock work?</summary><p data-i18n="f2.a">When the clock turns green, shallow passages open. Moon's Howl freezes it.</p></details>
+      <details class="reveal"><summary data-i18n="f3.q">I have trouble telling the colors apart.</summary><p data-i18n="f3.a">Every color has its own symbol on the boats and bandanas.</p></details>
+      <details class="reveal"><summary data-i18n="f4.q">Does No Ads remove every ad?</summary><p data-i18n="f4.a">It removes ads between levels. Optional reward videos stay.</p></details>
+      <details class="reveal"><summary data-i18n="f5.q">I reinstalled the game and lost my progress.</summary><p data-i18n="f5.a">Progress is saved on your device and is deleted with the game. Purchases can be restored in Settings.</p></details>
+      <details class="reveal"><summary data-i18n="f6.q">Why does the game need internet?</summary><p data-i18n="f6.a">Ads, the store and purchases need a connection.</p></details>
+      <details class="reveal"><summary data-i18n="f7.q">How do I change the language?</summary><p data-i18n="f7.a">In the game: Settings › Language.</p></details>
+      <details class="reveal"><summary data-i18n="f8.q">How do I manage ad privacy choices?</summary><p data-i18n="f8.a">In the game: Settings › Privacy Options.</p></details>
+      <details class="reveal"><summary data-i18n="f9.q">I found a bug or a level I can't pass.</summary><p data-i18n="f9.a">Write to us with the level number and your device.</p></details>
     </div>
   </div>
 </section>
@@ -376,14 +241,85 @@
 
 <footer>
   <div class="wrap">
-    <span class="brand"><img src="assets/icon-180.png?v=2" alt="" width="28" height="28">Captain Match: Pirate Boat Jam</span>
-    <span>&copy; 2026 Mehmet Uçar</span>
-    <span class="links">
-      <a href="mailto:mehmetuar601@gmail.com">mehmetuar601@gmail.com</a>
-      <a href="https://mehmetuar.github.io/captainmatch-privacy/">Privacy Policy</a>
-    </span>
+    <div class="foot">
+      <div>
+        <img class="logo" src="assets/img/logo.webp" alt="Captain Match" width="560" height="301" loading="lazy">
+        <p style="margin:0" data-i18n="foot.tag">A boat jam puzzle with a pirate twist.</p>
+      </div>
+      <div>
+        <h4 data-i18n="foot.explore">Explore</h4>
+        <ul><li><a href="#game" data-i18n="nav.game">Game</a></li><li><a href="#crew" data-i18n="nav.crew">Crew</a></li><li><a href="#story" data-i18n="nav.story">Story</a></li><li><a href="#support" data-i18n="nav.support">Support</a></li><li><a href="#" data-open-contact data-i18n="nav.contact">Contact</a></li><li><a href="https://mehmetuar.github.io/captainmatch-privacy/" data-i18n="foot.privacy">Privacy Policy</a></li></ul>
+      </div>
+      <div>
+        <h4 data-i18n="foot.get">Get the game</h4>
+        <div class="stores">
+          <a class="store" data-store="ios" href="https://apps.apple.com/app/id6809573977"><svg aria-hidden="true"><use href="#i-apple"/></svg><span><small data-i18n="badge.ios.s">Download on the</small><b>App Store</b></span></a>
+          <a class="store" data-store="android" href="https://play.google.com/store/apps/details?id=com.captainmatch.app"><svg aria-hidden="true"><use href="#i-play"/></svg><span><small data-i18n="badge.gp.s">GET IT ON</small><b>Google Play</b></span></a>
+        </div>
+      </div>
+    </div>
+    <div class="legal"><span>&copy; 2026 Mehmet Uçar</span><a href="mailto:mehmetuar601@gmail.com">mehmetuar601@gmail.com</a></div>
   </div>
 </footer>
 
+<!-- telefon: alttan indirme çubuğu -->
+<div class="sticky-dl" id="stickyDl" aria-hidden="true">
+  <img src="assets/img/app-icon.webp" alt="" width="42" height="42">
+  <span class="t"><b>Captain Match</b><small data-i18n="sticky.s">Free</small></span>
+  <a class="btn btn-gold" id="stickyBtn" href="#download"><svg class="dl-ico" aria-hidden="true"><use href="#dl-c"/></svg><span data-i18n="nav.download">Download</span></a>
+  <button class="x" type="button" id="stickyX" data-i18n-aria="close"><svg width="14" height="14" aria-hidden="true"><use href="#i-x"/></svg></button>
+</div>
+
+<!-- Usta penceresi -->
+<dialog id="crewDlg" aria-labelledby="crewName">
+  <div class="dlg" id="crewBox">
+    <button class="dlg-close" type="button" data-close data-i18n-aria="close"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+    <div class="dlg-in">
+      <div class="dlg-art" id="crewArt"><img id="crewImg" alt=""></div>
+      <div class="dlg-text">
+        <span class="kicker" id="crewKicker"></span>
+        <h3 class="toon gold" id="crewName"></h3>
+        <p class="sig hand" id="crewSig"></p>
+        <p class="story" id="crewStory"></p>
+        <ul class="fx"><li><b data-i18n="fx.wake">Wake</b><span id="crewWake"></span></li><li><b data-i18n="fx.farewell">Farewell</b><span id="crewFare"></span></li></ul>
+        <div class="dlg-nav">
+          <button class="btn" type="button" id="crewPrev"><svg aria-hidden="true"><use href="#i-left"/></svg><span id="crewPrevName"></span></button>
+          <button class="btn" type="button" id="crewNext"><span id="crewNextName"></span><svg aria-hidden="true"><use href="#i-right"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- iletişim: e-posta oluşturan form -->
+<dialog id="contactDlg" aria-labelledby="contactTitle">
+  <form class="form" id="contactForm" method="dialog">
+    <button class="dlg-close" type="button" data-close data-i18n-aria="close"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+    <h3 class="toon gold" id="contactTitle" data-i18n="cf.title">Write to us</h3>
+    <p data-i18n="cf.lead">Opens your email app, ready to send.</p>
+    <div class="field"><label for="cfTopic" data-i18n="cf.topic">Topic</label>
+      <select id="cfTopic">
+        <option value="purchase" data-i18n="cf.t.purchase">A purchase</option>
+        <option value="ads" data-i18n="cf.t.ads">Ads</option>
+        <option value="progress" data-i18n="cf.t.progress">Progress or save</option>
+        <option value="bug" data-i18n="cf.t.bug">Bug or stuck level</option>
+        <option value="idea" data-i18n="cf.t.idea">Idea or feedback</option>
+        <option value="other" data-i18n="cf.t.other">Something else</option>
+      </select></div>
+    <div class="two">
+      <div class="field"><label for="cfDevice" data-i18n="cf.device">Device</label><input id="cfDevice" autocomplete="off" placeholder="iPhone 15, iOS 18"></div>
+      <div class="field"><label for="cfLevel" data-i18n="cf.level">Level (optional)</label><input id="cfLevel" inputmode="numeric" placeholder="42"></div>
+    </div>
+    <div class="field"><label for="cfMsg" data-i18n="cf.msg">Message</label><textarea id="cfMsg" required></textarea></div>
+    <div class="form-act">
+      <button class="btn btn-gold" type="submit"><svg aria-hidden="true"><use href="#i-mail"/></svg><span data-i18n="cf.send">Open in my email app</span></button>
+      <button class="btn-text" type="button" id="cfCopy" data-i18n="cf.copy">Copy address</button>
+    </div>
+  </form>
+</dialog>
+
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/site.js"></script>
 </body>
 </html>
