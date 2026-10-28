@@ -228,6 +228,7 @@ CM.links = {
   appStore: "https://apps.apple.com/app/id6809573977",
   play: "https://play.google.com/store/apps/details?id=com.captainmatch.app",
   email: "mehmetuar601@gmail.com",
-  // Form mesajları FormSubmit üzerinden bu adrese gelir (ilk mesajda Gmail'e gelen "Activate Form" linkine bir kez tıklanır)
-  form: "https://formsubmit.co/ajax/mehmetuar601@gmail.com"
+  // Form mesajları FormSubmit üzerinden mehmetuar601@gmail.com'a gelir (28 Ekim etkinleştirildi). Adres yerine FormSubmit'in
+  // verdiği gizli takma ad kullanılır; adres değişirse FormSubmit yeni etkinleştirme ve yeni takma ad ister.
+  form: "https://formsubmit.co/ajax/947ca201ce97b154d978d8ff5d6d9138"
 };

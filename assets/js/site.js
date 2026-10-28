@@ -181,14 +181,18 @@
       _subject: "[Captain Match] " + label, _template: "table", _captcha: "false"
     };
     sending(true); status();
-    fetch(CM.links.form, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(data) })
-      .then(function (r) { return r.json(); })
+    // Düz form verisi (urlencoded) + yalnız Accept başlığı = "basit istek": tarayıcı ön kontrol (OPTIONS) atmaz.
+    // FormSubmit her isteğe ~20 sn'de cevap verebiliyor; ön kontrol bunu ikiye katlıyordu (28 Ekim ölçümü).
+    var body = new URLSearchParams(), ctl = window.AbortController ? new AbortController() : null, timer;
+    Object.keys(data).forEach(function (k) { body.append(k, data[k]); });
+    var timeout = new Promise(function (_, rej) { timer = setTimeout(function () { if (ctl) ctl.abort(); rej(new Error("timeout")); }, 45000); });
+    Promise.race([fetch(CM.links.form, { method: "POST", headers: { Accept: "application/json" }, body: body, signal: ctl ? ctl.signal : undefined }).then(function (r) { return r.json(); }), timeout])
       .then(function (j) {
         if (String(j.success) !== "true") throw new Error(j.message || "form");
         form.reset(); $("#cfDevice").value = guessDevice(); status("ok", t("cf.ok"));
       })
       .catch(function () { status("err", t("cf.err")); })
-      .then(function () { sending(false); });
+      .then(function () { clearTimeout(timer); sending(false); });
   });
   $("#cfCopy").addEventListener("click", function () {
     var b = this, done = function () { b.textContent = t("cf.copied"); setTimeout(function () { b.textContent = t("cf.copy"); }, 1600); };
