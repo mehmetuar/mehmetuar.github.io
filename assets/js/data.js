@@ -40,10 +40,9 @@ CM.ui = {
     "f7.q": "How do I change the language?", "f7.a": "In the game: Settings › Language.",
     "f8.q": "How do I manage ad privacy choices?", "f8.a": "In the game: Settings › Privacy Options.",
     "f9.q": "I found a bug or a level I can't pass.", "f9.a": "Write to us with the level number and your device.",
-    "cf.title": "Write to us", "cf.lead": "Opens your email app, ready to send.",
+    "cf.title": "Write to us", "cf.lead": "Your message comes straight to us.", "cf.email": "Your email",
     "cf.topic": "Topic", "cf.t.purchase": "A purchase", "cf.t.ads": "Ads", "cf.t.progress": "Progress or save", "cf.t.bug": "Bug or stuck level", "cf.t.idea": "Idea or feedback", "cf.t.other": "Something else",
-    "cf.device": "Device", "cf.level": "Level (optional)", "cf.msg": "Message", "cf.send": "Open in my email app", "cf.copy": "Copy address", "cf.copied": "Copied!",
-    "cf.b.device": "Device", "cf.b.level": "Level", "cf.b.lang": "Site language",
+    "cf.device": "Device", "cf.level": "Level (optional)", "cf.msg": "Message", "cf.send": "Send", "cf.sending": "Sending…", "cf.ok": "Message sent. Thank you!", "cf.err": "Couldn't send. Please try again or write to", "cf.copy": "Copy address", "cf.copied": "Copied!",
     "foot.tag": "A boat jam puzzle with a pirate twist.", "foot.explore": "Explore", "foot.get": "Get the game", "foot.privacy": "Privacy Policy",
     "sticky.s": "Free"
   },
@@ -84,10 +83,9 @@ CM.ui = {
     "f7.q": "Dili nasıl değiştiririm?", "f7.a": "Oyunda: Ayarlar › Dil.",
     "f8.q": "Reklam gizlilik tercihlerimi nasıl yönetirim?", "f8.a": "Oyunda: Ayarlar › Gizlilik Seçenekleri.",
     "f9.q": "Hata buldum ya da bir leveli geçemiyorum.", "f9.a": "Level numarası ve cihazınla bize yaz.",
-    "cf.title": "Bize yaz", "cf.lead": "E-posta uygulaman hazır metinle açılır.",
+    "cf.title": "Bize yaz", "cf.lead": "Mesajın doğrudan bize ulaşır.", "cf.email": "E-posta adresin",
     "cf.topic": "Konu", "cf.t.purchase": "Satın alma", "cf.t.ads": "Reklamlar", "cf.t.progress": "İlerleme ya da kayıt", "cf.t.bug": "Hata ya da geçilemeyen level", "cf.t.idea": "Fikir ya da öneri", "cf.t.other": "Başka bir konu",
-    "cf.device": "Cihaz", "cf.level": "Level (isteğe bağlı)", "cf.msg": "Mesaj", "cf.send": "E-posta uygulamasında aç", "cf.copy": "Adresi kopyala", "cf.copied": "Kopyalandı!",
-    "cf.b.device": "Cihaz", "cf.b.level": "Level", "cf.b.lang": "Site dili",
+    "cf.device": "Cihaz", "cf.level": "Level (isteğe bağlı)", "cf.msg": "Mesaj", "cf.send": "Gönder", "cf.sending": "Gönderiliyor…", "cf.ok": "Mesajın ulaştı, teşekkürler!", "cf.err": "Gönderilemedi. Tekrar dene ya da şu adrese yaz:", "cf.copy": "Adresi kopyala", "cf.copied": "Kopyalandı!",
     "foot.tag": "Korsan dokunuşlu bir gemi bulmacası.", "foot.explore": "Keşfet", "foot.get": "Oyunu indir", "foot.privacy": "Gizlilik Politikası",
     "sticky.s": "Ücretsiz"
   }
@@ -229,5 +227,7 @@ CM.log = [
 CM.links = {
   appStore: "https://apps.apple.com/app/id6809573977",
   play: "https://play.google.com/store/apps/details?id=com.captainmatch.app",
-  email: "mehmetuar601@gmail.com"
+  email: "mehmetuar601@gmail.com",
+  // Form mesajları FormSubmit üzerinden bu adrese gelir (ilk mesajda Gmail'e gelen "Activate Form" linkine bir kez tıklanır)
+  form: "https://formsubmit.co/ajax/mehmetuar601@gmail.com"
 };

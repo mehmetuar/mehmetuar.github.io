@@ -153,8 +153,8 @@
   $("#pgPrev").addEventListener("click", function () { if (page > 0) { page--; renderBook(); } });
   $("#pgNext").addEventListener("click", function () { if (page < CM.log.length - 1) { page++; renderBook(); } });
 
-  /* ---------- iletişim: e-posta oluşturan form ---------- */
-  var cdlg = $("#contactDlg");
+  /* ---------- iletişim: form FormSubmit üzerinden doğrudan gönderilir ---------- */
+  var cdlg = $("#contactDlg"), cst = $("#cfStatus"), csend = $("#cfSend");
   function guessDevice() {
     var m;
     if ((m = ua.match(/iPhone OS (\d+)[._](\d+)/))) return "iPhone, iOS " + m[1] + "." + m[2];
@@ -162,14 +162,33 @@
     if ((m = ua.match(/Android (\d+(\.\d+)?)/))) return "Android " + m[1];
     return "";
   }
+  function status(kind, text) {
+    cst.hidden = !kind; cst.className = "form-status " + (kind || ""); cst.textContent = text || "";
+    if (kind === "err") { var a = document.createElement("a"); a.href = "mailto:" + CM.links.email; a.textContent = CM.links.email; cst.appendChild(document.createTextNode(" ")); cst.appendChild(a); }
+  }
+  function sending(on) { csend.disabled = on; $("span", csend).textContent = t(on ? "cf.sending" : "cf.send"); }
   $$("[data-open-contact]").forEach(function (b) { b.addEventListener("click", function (e) {
-    e.preventDefault(); var d = $("#cfDevice"); if (!d.value) d.value = guessDevice(); cdlg.showModal(); setTimeout(function () { $("#cfTopic").focus(); }, 50);
+    e.preventDefault(); var d = $("#cfDevice"); if (!d.value) d.value = guessDevice(); status(); cdlg.showModal(); setTimeout(function () { $("#cfEmail").focus(); }, 50);
   }); });
   $("#contactForm").addEventListener("submit", function (e) {
     e.preventDefault();
+    var form = this;
+    if ($("#cfHoney").value) return; // spam botu gizli alanı doldurdu
     var topic = $("#cfTopic"), label = topic.options[topic.selectedIndex].text;
-    var body = $("#cfMsg").value.trim() + "\n\n—\n" + t("cf.b.device") + ": " + ($("#cfDevice").value.trim() || "-") + "\n" + t("cf.b.level") + ": " + ($("#cfLevel").value.trim() || "-") + "\n" + t("cf.b.lang") + ": " + lang.toUpperCase();
-    location.href = "mailto:" + CM.links.email + "?subject=" + encodeURIComponent("[Captain Match] " + label) + "&body=" + encodeURIComponent(body);
+    var data = {
+      email: $("#cfEmail").value.trim(), Topic: label, Device: $("#cfDevice").value.trim() || "-", Level: $("#cfLevel").value.trim() || "-",
+      Message: $("#cfMsg").value.trim(), Language: lang.toUpperCase(),
+      _subject: "[Captain Match] " + label, _template: "table", _captcha: "false"
+    };
+    sending(true); status();
+    fetch(CM.links.form, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (String(j.success) !== "true") throw new Error(j.message || "form");
+        form.reset(); $("#cfDevice").value = guessDevice(); status("ok", t("cf.ok"));
+      })
+      .catch(function () { status("err", t("cf.err")); })
+      .then(function () { sending(false); });
   });
   $("#cfCopy").addEventListener("click", function () {
     var b = this, done = function () { b.textContent = t("cf.copied"); setTimeout(function () { b.textContent = t("cf.copy"); }, 1600); };

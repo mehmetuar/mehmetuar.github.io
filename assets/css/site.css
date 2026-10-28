@@ -442,6 +442,11 @@ dialog[open] { animation: pop .32s var(--ease-out); }
 .field textarea { min-height: 120px; resize: vertical; }
 .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .form-act { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 6px; }
+.form-act .btn:disabled { opacity: .75; cursor: progress; animation: none; }
+.form-status { margin: 12px 0 0; padding: 9px 12px; border-radius: 12px; font-size: .95rem; font-weight: 600; }
+.form-status.ok { color: #1f6b35; background: rgba(63, 166, 92, .16); }
+.form-status.err { color: #9e2420; background: rgba(232, 69, 69, .12); }
+.form-status a { color: inherit; word-break: break-all; }
 .form-act .btn-text { border: 0; background: none; cursor: pointer; font: 700 .95rem/1 var(--f-display); color: var(--wood-d); text-decoration: underline; text-underline-offset: 3px; }
 .form .dlg-close { top: -14px; right: -14px; }
 @media (max-width: 600px) { .form .dlg-close { top: 10px; right: 10px; } .form h3 { padding-right: 46px; } }

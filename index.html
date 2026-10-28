@@ -293,10 +293,12 @@
 
 <!-- iletişim: e-posta oluşturan form -->
 <dialog id="contactDlg" aria-labelledby="contactTitle">
-  <form class="form" id="contactForm" method="dialog">
+  <form class="form" id="contactForm">
     <button class="dlg-close" type="button" data-close data-i18n-aria="close"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
     <h3 class="toon gold" id="contactTitle" data-i18n="cf.title">Write to us</h3>
-    <p data-i18n="cf.lead">Opens your email app, ready to send.</p>
+    <p data-i18n="cf.lead">Your message comes straight to us.</p>
+    <div class="field"><label for="cfEmail" data-i18n="cf.email">Your email</label><input id="cfEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+    <input class="sr" type="text" id="cfHoney" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
     <div class="field"><label for="cfTopic" data-i18n="cf.topic">Topic</label>
       <select id="cfTopic">
         <option value="purchase" data-i18n="cf.t.purchase">A purchase</option>
@@ -312,9 +314,10 @@
     </div>
     <div class="field"><label for="cfMsg" data-i18n="cf.msg">Message</label><textarea id="cfMsg" required></textarea></div>
     <div class="form-act">
-      <button class="btn btn-gold" type="submit"><svg aria-hidden="true"><use href="#i-mail"/></svg><span data-i18n="cf.send">Open in my email app</span></button>
+      <button class="btn btn-gold" type="submit" id="cfSend"><svg aria-hidden="true"><use href="#i-mail"/></svg><span data-i18n="cf.send">Send</span></button>
       <button class="btn-text" type="button" id="cfCopy" data-i18n="cf.copy">Copy address</button>
     </div>
+    <p class="form-status" id="cfStatus" role="status" aria-live="polite" hidden></p>
   </form>
 </dialog>
 
